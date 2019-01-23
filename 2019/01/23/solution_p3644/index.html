@@ -5,15 +5,19 @@
   
 
   
-  <title>Venus</title>
+  <title>题解 P3644 [APIO2015]八邻旁之桥 | Venus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Venus">
-<meta property="og:url" content="http://VenusNero.github.io/index.html">
+  <meta name="description" content="$\text{FHQ Treap}$。一开始写的不知道为什么写炸了，还以为不能用，不过后来找了一个 $\text{dalao}$的博客 重构了一下代码，总算还是过掉了。 如第一篇题解所说，$k=1$ 就直接算，$k=2$ 就枚举一个分割线，左右分别算，不过其实不用建两棵树，而是可以先预处理一下，然后就可以重复使用同一棵树（要清空），数据结构要支持区间插入、中值查询、区间和，线段树似乎不错，但我不知">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 P3644 [APIO2015]八邻旁之桥">
+<meta property="og:url" content="http://VenusNero.github.io/2019/01/23/solution_p3644/index.html">
 <meta property="og:site_name" content="Venus">
+<meta property="og:description" content="$\text{FHQ Treap}$。一开始写的不知道为什么写炸了，还以为不能用，不过后来找了一个 $\text{dalao}$的博客 重构了一下代码，总算还是过掉了。 如第一篇题解所说，$k=1$ 就直接算，$k=2$ 就枚举一个分割线，左右分别算，不过其实不用建两棵树，而是可以先预处理一下，然后就可以重复使用同一棵树（要清空），数据结构要支持区间插入、中值查询、区间和，线段树似乎不错，但我不知">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-23T01:11:46.028Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Venus">
+<meta name="twitter:title" content="题解 P3644 [APIO2015]八邻旁之桥">
+<meta name="twitter:description" content="$\text{FHQ Treap}$。一开始写的不知道为什么写炸了，还以为不能用，不过后来找了一个 $\text{dalao}$的博客 重构了一下代码，总算还是过掉了。 如第一篇题解所说，$k=1$ 就直接算，$k=2$ 就枚举一个分割线，左右分别算，不过其实不用建两棵树，而是可以先预处理一下，然后就可以重复使用同一棵树（要清空），数据结构要支持区间插入、中值查询、区间和，线段树似乎不错，但我不知">
   
     <link rel="alternate" href="/atom.xml" title="Venus" type="application/atom+xml">
   
@@ -60,9 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-solution_p3644" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-solution_p3644" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/23/solution_p3644/" class="article-date">
   <time datetime="2019-01-23T01:10:52.090Z" itemprop="datePublished">2019-01-23</time>
@@ -75,8 +77,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/23/solution_p3644/">题解 P3644 [APIO2015]八邻旁之桥</a>
+    <h1 class="article-title" itemprop="name">
+      题解 P3644 [APIO2015]八邻旁之桥
     </h1>
   
 
@@ -97,130 +99,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Tree_Split_Train" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/22/Tree_Split_Train/" class="article-date">
-  <time datetime="2019-01-22T13:00:22.630Z" itemprop="datePublished">2019-01-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/22/Tree_Split_Train/">树链剖分瞎入门</a>
-    </h1>
+    <a href="/2019/01/22/Tree_Split_Train/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">树链剖分瞎入门</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><del>本文旨在让读者背代码</del></p>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在做题时，我们可能会遇到这样一类问题：</p>
-<blockquote>
-<p>给定一棵 $n$ 个结点的树和 $m$ 次操作，操作有两种，一种是给定两个结点，让连接两个结点的路径上的所有点权值加上一个值，另一种是查询路径上所有点的权值和。$n\le 1e5$，$m\le 2e5$。</p>
-</blockquote>
-<p>如果是最后统一输出结点权值，用树上差分+$\text{DFS}$ 就能轻松水过，而对于在线查询，如果数据范围小的话暴力即可 $\text{AC}$，时间复杂度 $\text{O}(nm)$，但是很明显，这个数据范围肯定不能这么写了。此时，就需要树链剖分出场了。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/01/22/Tree_Split_Train/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://VenusNero.github.io/2019/01/22/Tree_Split_Train/" data-id="cjr8htz6q0003r4nuyrcymny0" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-text_of_latex" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/22/text_of_latex/" class="article-date">
-  <time datetime="2019-01-22T12:20:44.033Z" itemprop="datePublished">2019-01-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/22/text_of_latex/">LaTeX 测试</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <script type="math/tex; mode=display">\max{(S)}=\sum_{T\subseteq S}^{}(-1)^{|T|-1}\min{(T)}</script>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://VenusNero.github.io/2019/01/22/text_of_latex/" data-id="cjr8htz620002r4nuubtz7z97" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/22/hello-world/" class="article-date">
-  <time datetime="2019-01-22T11:48:43.687Z" itemprop="datePublished">2019-01-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/22/hello-world/">Hello the Cruel World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这里是我的新博客，平时随缘更新，望关注【笑</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://VenusNero.github.io/2019/01/22/hello-world/" data-id="cjr8htz5k0000r4nue3rdevxe" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
