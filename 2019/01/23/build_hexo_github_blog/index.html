@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://z4a.net/images/2019/01/23/TIM20190123091628.png">
 <meta property="og:image" content="https://z4a.net/images/2019/01/23/TIM20190123091649.png">
 <meta property="og:image" content="https://z4a.net/images/2019/01/23/TIM20190123091704.png">
-<meta property="og:updated_time" content="2019-01-23T13:56:12.972Z">
+<meta property="og:updated_time" content="2019-01-23T13:58:31.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零搭建 Hexo + Github 博客">
 <meta name="twitter:description" content="前言之前有一篇用 $\text{Wordpress}$ 搭建博客的文章，这里给出一种更为方便的搭建方法，只要用 $\text{Github}$。 笔者是在 $\text{Windows}$ 的环境下搭建的，其他系统可能不适用。 本文同步发表于笔者的博客：从零搭建 Hexo + Github 博客">
@@ -261,7 +261,7 @@
 <p>注意：基本上所有修改完成后都要打一遍 <code>hexo clean</code>，<code>hexo g</code>，<code>hexo d</code>，忘记打就会导致修改在网站上无法生效。</p>
 <hr>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>这里只是给出了一些最基础的内容，各位想要更深的研究可以在网上找一些教程，也可以套用现有的主题，难度应该不会很大（当然，如果涉及 $\text{JS}$ 那也不简单了【笑】）。</p>
-<p>参考资料：<a href="https://www.bilibili.com/video/av24897960/" target="_blank" rel="noopener">1</a>  <a href="https://www.jianshu.com/p/68e6f82d88b7" target="_blank" rel="noopener">2</a></p>
+<p>参考资料：<a href="https://www.bilibili.com/video/av24897960/" target="_blank" rel="noopener">1</a>  <a href="https://www.jianshu.com/p/68e6f82d88b7" target="_blank" rel="noopener">2</a> <a href="https://blog.csdn.net/dajian790626/article/details/78595684?locationNum=10&amp;fps=1" target="_blank" rel="noopener">3</a></p>
 
       
     </div>
@@ -398,5 +398,21 @@
 
 
   </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
