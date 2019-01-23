@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://z4a.net/images/2019/01/23/TIM20190123091628.png">
 <meta property="og:image" content="https://z4a.net/images/2019/01/23/TIM20190123091649.png">
 <meta property="og:image" content="https://z4a.net/images/2019/01/23/TIM20190123091704.png">
-<meta property="og:updated_time" content="2019-01-23T08:39:29.640Z">
+<meta property="og:updated_time" content="2019-01-23T09:33:49.362Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零搭建 Hexo + Github 博客">
 <meta name="twitter:description" content="前言之前有一篇用 $\text{Wordpress}$ 搭建博客的文章，这里给出一种更为方便的搭建方法，只要用 $\text{Github}$。 笔者是在 $\text{Windows}$ 的环境下搭建的，其他系统可能不适用。 本文同步发表于笔者的博客：从零搭建 Hexo + Github 博客">
@@ -213,7 +213,7 @@
 <p><img src="https://z4a.net/images/2019/01/23/TIM20190123083633.png" alt=""></p>
 <p><img src="https://z4a.net/images/2019/01/23/TIM20190123083827.png" alt=""></p>
 <p>之后我们可以打开 <code>_config.yml</code>，将下面的 <code>theme:</code> 后面的名字改成安装的文件夹的名字，比如 <code>theme: next</code>。</p>
-<h2 id="5-博客的标题"><a href="#5-博客的标题" class="headerlink" title="5. 博客的标题"></a>5. 博客的标题</h2><p>打开 <code>_config.yml</code>，可以看到上方有一个 <code>title:</code>，把后面的修改掉就行了。</p>
+<h2 id="6-博客的标题"><a href="#6-博客的标题" class="headerlink" title="6. 博客的标题"></a>6. 博客的标题</h2><p>打开 <code>_config.yml</code>，可以看到上方有一个 <code>title:</code>，把后面的修改掉就行了。</p>
 <hr>
 <h1 id="LaTeX-设置"><a href="#LaTeX-设置" class="headerlink" title="$\LaTeX$ 设置"></a>$\LaTeX$ 设置</h1><p>我们此时搭建的博客只能使用 $\text{Markdown}$，同时因为一些语句的冲突无法使用 $\LaTeX$ ，所以我们需要解决这些冲突，同时安装一个能够使用及渲染 $\LaTeX$ 的语言包。</p>
 <p><strong>下面的操作都默认 <code>cd</code> 到了博客文件夹。</strong></p>
@@ -237,7 +237,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([`*\[\]()# +\-.!_&gt;])/,</span><br><span class="line"></span><br><span class="line">em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br></pre></td></tr></table></figure>
 <p><img src="https://z4a.net/images/2019/01/23/TIM20190123085601.png" alt=""></p>
 <p>至此，我们完成了 $\LaTeX$ 的前置准备，最后只需要启用即可。</p>
-<h2 id="6-启用"><a href="#6-启用" class="headerlink" title="6. 启用"></a>6. 启用</h2><p>进入你所用主题的文件夹，即 <code>\themes\主题\_config.yml</code>，加上一行代码：<code>mathjax: true</code> 即可，也可以进入 <code>博客名\_config.yml</code>，加上一行同样的代码。</p>
+<h2 id="6-启用"><a href="#6-启用" class="headerlink" title="6. 启用"></a>6. 启用</h2><p>进入进入 <code>博客\_config.yml</code>，加上一行 <code>mathjax: true</code> 即可。如果不行的话，就在每篇博客最前面的信息处加上一行 <code>mathjax: true</code> 即可。</p>
 <hr>
 <h1 id="如何上传博客"><a href="#如何上传博客" class="headerlink" title="如何上传博客"></a>如何上传博客</h1><p>我们进入 <code>博客名\source\_posts</code>，这里就是放博客的地方。如果要写博客，最好使用一些 $\text{Markdown}$ + $\LaTeX$ 编辑器，比如 $\text{Typora}$，在本地写好后，在放博客的地方新建一个文档，文档的名字就决定了你的标识符，也就是这个东西：</p>
 <p><img src="https://z4a.net/images/2019/01/23/TIM20190123090126.png" alt=""></p>
@@ -255,7 +255,7 @@
 <p><img src="https://z4a.net/images/2019/01/23/TIM20190123091649.png" alt=""></p>
 <p><img src="https://z4a.net/images/2019/01/23/TIM20190123091704.png" alt=""></p>
 <hr>
-<h1 id="博客背景"><a href="#博客背景" class="headerlink" title="博客背景"></a>博客背景</h1><p>进入 <code>\themes\landscape\source\css\images</code>，有一张叫做 <code>banner.jpg/png</code> 的图，我们将它替换，文件名和后缀名最好都一样，然后按照上面传博客的方法，<code>hexo clean</code>，<code>hexo g</code>，<code>hexo d</code>，等一会儿就上传完成了。</p>
+<h1 id="博客背景"><a href="#博客背景" class="headerlink" title="博客背景"></a>博客背景</h1><p>进入 <code>\themes\landscape\source\css\images</code>，有一张叫做 <code>banner.jpg/png</code> 的图（不同主题的位置及名字都可能不同），我们将它替换，文件名和后缀名最好都一样，然后按照上面传博客的方法，<code>hexo clean</code>，<code>hexo g</code>，<code>hexo d</code>，等一会儿就上传完成了。</p>
 <hr>
 <p>注意：基本上所有修改完成后都要打一遍 <code>hexo clean</code>，<code>hexo g</code>，<code>hexo d</code>，忘记打就会导致修改在网站上无法生效。</p>
 <hr>
@@ -265,7 +265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://VenusNero.github.io/2019/01/23/build_hexo_github_blog/" data-id="cjr8xtl38000cg4nug0jm6spe" class="article-share-link">Share</a>
+      <a data-url="http://VenusNero.github.io/2019/01/23/build_hexo_github_blog/" data-id="cjr8zrkov0006isnuhjt7kmgd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IT/">IT</a></li></ul>
