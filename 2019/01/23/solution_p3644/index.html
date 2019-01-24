@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>题解 P3644 [APIO2015]八邻旁之桥 | Venus&#39; Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="$\text{FHQ Treap}$。一开始写的不知道为什么写炸了，还以为不能用，不过后来找了一个 $\text{dalao}$的博客 重构了一下代码，总算还是过掉了。">
+<meta name="keywords" content="题解,FHQTreap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 P3644 [APIO2015]八邻旁之桥">
+<meta property="og:url" content="http://VenusNero.github.io/2019/01/23/solution_p3644/index.html">
+<meta property="og:site_name" content="Venus&#39; Blog">
+<meta property="og:description" content="$\text{FHQ Treap}$。一开始写的不知道为什么写炸了，还以为不能用，不过后来找了一个 $\text{dalao}$的博客 重构了一下代码，总算还是过掉了。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-23T08:28:30.171Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="题解 P3644 [APIO2015]八邻旁之桥">
+<meta name="twitter:description" content="$\text{FHQ Treap}$。一开始写的不知道为什么写炸了，还以为不能用，不过后来找了一个 $\text{dalao}$的博客 重构了一下代码，总算还是过掉了。">
+  
+    <link rel="alternate" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Venus&#39; Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://VenusNero.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-solution_p3644" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/23/solution_p3644/" class="article-date">
+  <time datetime="2019-01-23T01:10:52.090Z" itemprop="datePublished">2019-01-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      题解 P3644 [APIO2015]八邻旁之桥
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>$\text{FHQ Treap}$。一开始写的不知道为什么写炸了，还以为不能用，不过后来找了一个 <a href="https://www.cnblogs.com/ppprseter/p/9385979.html" target="_blank" rel="noopener">$\text{dalao}$的博客</a> 重构了一下代码，总算还是过掉了。</p>
+<a id="more"></a>
+<p>如第一篇题解所说，$k=1$ 就直接算，$k=2$ 就枚举一个分割线，左右分别算，不过其实不用建两棵树，而是可以先预处理一下，然后就可以重复使用同一棵树（要清空），数据结构要支持区间插入、中值查询、区间和，线段树似乎不错，但我不知道怎么查中值【流下菜鸡的泪水】，所以还是写了<del>一生所爱</del> $\text{FHQ Treap}$，维护下传一个 $sum$ 标记即可。</p>
+<p>写时为了防止读入字符出错使用了关闭流同步的 <code>cin</code>，同时使用 <code>cout</code> 输出，各位有需要可以自行修改。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 100005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FHQTreap</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> son[<span class="number">2</span>],key,siz;</span><br><span class="line">	ll val,sum;</span><br><span class="line">&#125;t[MAXN&lt;&lt;<span class="number">1</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> l,r,mid;</span><br><span class="line">	<span class="keyword">friend</span> <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Node &amp;x,<span class="keyword">const</span> Node &amp;y)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> x.mid&lt;y.mid;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;a[MAXN];</span><br><span class="line"><span class="keyword">int</span> k,n,siz,root,tot;</span><br><span class="line">ll ans[MAXN],Ans;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	t[x].siz=t[t[x].son[<span class="number">0</span>]].siz+t[t[x].son[<span class="number">1</span>]].siz+<span class="number">1</span>;</span><br><span class="line">	t[x].sum=t[t[x].son[<span class="number">0</span>]].sum+t[t[x].son[<span class="number">1</span>]].sum+t[x].val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">NewNode</span><span class="params">(ll val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	t[++siz].siz=<span class="number">1</span>;</span><br><span class="line">	t[siz].val=val;</span><br><span class="line">	t[siz].key=rand();</span><br><span class="line">	t[siz].sum=val;</span><br><span class="line">	<span class="keyword">return</span> siz;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!x || !y) <span class="keyword">return</span> x+y;</span><br><span class="line">	<span class="keyword">if</span>(t[x].key&lt;t[y].key)</span><br><span class="line">	&#123;</span><br><span class="line">		t[x].son[<span class="number">1</span>]=Merge(t[x].son[<span class="number">1</span>],y);</span><br><span class="line">		Update(x);</span><br><span class="line">		<span class="keyword">return</span> x;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		t[y].son[<span class="number">0</span>]=Merge(x,t[y].son[<span class="number">0</span>]);</span><br><span class="line">		Update(y);</span><br><span class="line">		<span class="keyword">return</span> y;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Split</span><span class="params">(<span class="keyword">int</span> rt,<span class="keyword">int</span> pos,<span class="keyword">int</span> &amp;l,<span class="keyword">int</span> &amp;r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!rt) l=r=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(t[rt].val&lt;=pos)</span><br><span class="line">		&#123;</span><br><span class="line">			l=rt;</span><br><span class="line">			Split(t[rt].son[<span class="number">1</span>],pos,t[rt].son[<span class="number">1</span>],r);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			r=rt;</span><br><span class="line">			Split(t[rt].son[<span class="number">0</span>],pos,l,t[rt].son[<span class="number">0</span>]);</span><br><span class="line">		&#125;</span><br><span class="line">		Update(rt);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">FindKth</span><span class="params">(<span class="keyword">int</span> rt,<span class="keyword">int</span> pos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(pos&lt;=t[t[rt].son[<span class="number">0</span>]].siz) rt=t[rt].son[<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(pos==t[t[rt].son[<span class="number">0</span>]].siz+<span class="number">1</span>) <span class="keyword">return</span> t[rt].val;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			pos-=t[t[rt].son[<span class="number">0</span>]].siz+<span class="number">1</span>;</span><br><span class="line">			rt=t[rt].son[<span class="number">1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(ll val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x,y;</span><br><span class="line">	Split(root,val,x,y);</span><br><span class="line">	root=Merge(Merge(x,NewNode(val)),y);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">Query</span><span class="params">(ll val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> x,y;</span><br><span class="line">	ll sum=t[root].siz/<span class="number">2</span>,res=<span class="number">0</span>;</span><br><span class="line">	Split(root,val<span class="number">-1</span>,x,y);</span><br><span class="line">	res=t[x].sum*<span class="number">2</span>+val*(sum-t[x].siz)*<span class="number">2</span>;</span><br><span class="line">	root=Merge(x,y);</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ll <span class="title">CalcMid</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ll rk=FindKth(root,t[root].siz/<span class="number">2</span>);</span><br><span class="line">	<span class="keyword">return</span> t[root].sum-Query(rk);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ios::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;k&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> x,y;</span><br><span class="line">		<span class="keyword">char</span> opt1,opt2;</span><br><span class="line">		<span class="built_in">cin</span>&gt;&gt;opt1&gt;&gt;x&gt;&gt;opt2&gt;&gt;y;</span><br><span class="line">		<span class="keyword">if</span>(x&gt;y) swap(x,y);</span><br><span class="line">		<span class="keyword">if</span>(opt1==opt2) Ans+=y-x;</span><br><span class="line">		<span class="keyword">else</span> a[++tot]=((Node)&#123;x,y,x+y&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	sort(a+<span class="number">1</span>,a+tot+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		Insert(a[i].l);</span><br><span class="line">		Insert(a[i].r);</span><br><span class="line">		ans[i]=CalcMid();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(k==<span class="number">1</span>) <span class="keyword">return</span> <span class="built_in">cout</span>&lt;&lt;ans[tot]+Ans+tot&lt;&lt;<span class="built_in">endl</span>,<span class="number">0</span>;</span><br><span class="line">	ll cnt=ans[tot];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=siz;i++) t[i].son[<span class="number">0</span>]=t[i].son[<span class="number">1</span>]=<span class="number">0</span>;</span><br><span class="line">	root=siz=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=tot;i&gt;=<span class="number">1</span>;i--)</span><br><span class="line">	&#123;</span><br><span class="line">		Insert(a[i].l);</span><br><span class="line">		Insert(a[i].r);</span><br><span class="line">		cnt=min(cnt,ans[i<span class="number">-1</span>]+CalcMid());</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;cnt+Ans+tot&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://VenusNero.github.io/2019/01/23/solution_p3644/" data-id="cjraow1fc0003m0nubh17x1em" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FHQTreap/">FHQTreap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/题解/">题解</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/23/build_hexo_github_blog/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          从零搭建 Hexo + Github 博客
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/01/22/Tree_Split_Train/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">树链剖分瞎入门</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/FHQTreap/">FHQTreap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IT/">IT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/学习笔记/">学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树链剖分/">树链剖分</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/珂朵莉树/">珂朵莉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/题解/">题解</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/FHQTreap/" style="font-size: 10px;">FHQTreap</a> <a href="/tags/IT/" style="font-size: 10px;">IT</a> <a href="/tags/学习笔记/" style="font-size: 20px;">学习笔记</a> <a href="/tags/树链剖分/" style="font-size: 10px;">树链剖分</a> <a href="/tags/珂朵莉树/" style="font-size: 10px;">珂朵莉树</a> <a href="/tags/题解/" style="font-size: 10px;">题解</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/23/chtholly_tree_note/">珂朵莉树（ODT）学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/23/build_hexo_github_blog/">从零搭建 Hexo + Github 博客</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/23/solution_p3644/">题解 P3644 [APIO2015]八邻旁之桥</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/22/Tree_Split_Train/">树链剖分瞎入门</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/22/text_of_latex/">LaTeX 测试</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Venus<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<!-- script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
