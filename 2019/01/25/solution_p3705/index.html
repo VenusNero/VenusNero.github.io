@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
-  <title>LaTeX 测试 | Venus&#39; Blog</title>
+  <title>题解 P3705 [SDOI2017]新生舞会 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="\max{(S)}=\sum_{T\subseteq S}^{}(-1)^{|T|-1}\min{(T)}">
+  <meta name="description" content="二分图最佳匹配 + 分数规划。">
+<meta name="keywords" content="题解,费用流,分数规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LaTeX 测试">
-<meta property="og:url" content="http://VenusNero.github.io/2019/01/22/text_of_latex/index.html">
+<meta property="og:title" content="题解 P3705 [SDOI2017]新生舞会">
+<meta property="og:url" content="http://VenusNero.github.io/2019/01/25/solution_p3705/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
-<meta property="og:description" content="\max{(S)}=\sum_{T\subseteq S}^{}(-1)^{|T|-1}\min{(T)}">
+<meta property="og:description" content="二分图最佳匹配 + 分数规划。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-22T12:46:45.652Z">
+<meta property="og:updated_time" content="2019-01-25T05:34:07.738Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LaTeX 测试">
-<meta name="twitter:description" content="\max{(S)}=\sum_{T\subseteq S}^{}(-1)^{|T|-1}\min{(T)}">
+<meta name="twitter:title" content="题解 P3705 [SDOI2017]新生舞会">
+<meta name="twitter:description" content="二分图最佳匹配 + 分数规划。">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -144,27 +145,33 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-text_of_latex" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-solution_p3705" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      LaTeX 测试
+      题解 P3705 [SDOI2017]新生舞会
     </h1>
   
 
         
-        <a href="/2019/01/22/text_of_latex/" class="archive-article-date">
-  	<time datetime="2019-01-22T12:20:44.033Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-22</time>
+        <a href="/2019/01/25/solution_p3705/" class="archive-article-date">
+  	<time datetime="2019-01-25T05:34:07.627Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <script type="math/tex; mode=display">\max{(S)}=\sum_{T\subseteq S}^{}(-1)^{|T|-1}\min{(T)}</script>
+        <p>二分图最佳匹配 + 分数规划。</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=22677451&auto=1&height=66"></iframe>
+
+<a id="more"></a>
+<p>读题，发现要求最优配对，很显然，这个图是一张二分图，那么最佳匹配我们可以用 $\text{KM}$ 或者 费用流 来求出，这里不赘述如何求出最佳匹配。我们来考虑怎么计算这个 $C=\frac{\sum_{i=1}^{k}a’[i]}{\sum_{i=1}^{k}b’[i]}$。显然，这里的 $\sum_{i=1}^{k}b’[i]$ 是非常不好处理的，所以我们要引入<strong>分数规划</strong>的思想，将这个式子转化成 $\sum_{}^{}a’-C\sum_{}^{}b’=0$，然后二分答案 $C$，每次 $\text{Check}$ 都跑一遍最佳匹配，边权就设成 $a[i][j]-mid\times b[i][j]$，然后跑最大权最佳匹配（也就是最大费用最大流），判断最后得到的权和是否为 $0$ 即可。</p>
+<p>代码选用 $\text{zkw}$ 费用流。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 1005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> inf 1010580540</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> eps 1e-8</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">deque</span> &lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line"><span class="keyword">int</span> cnt,fst[MAXN],nxt[MAXN&lt;&lt;<span class="number">5</span>],to[MAXN&lt;&lt;<span class="number">5</span>],w[MAXN&lt;&lt;<span class="number">5</span>],cur[MAXN];</span><br><span class="line"><span class="keyword">int</span> n,m,S,T,maxflow;</span><br><span class="line"><span class="keyword">double</span> dis[MAXN],a[MAXN][MAXN],b[MAXN][MAXN],cot[MAXN&lt;&lt;<span class="number">5</span>],mincost;</span><br><span class="line"><span class="keyword">bool</span> inq[MAXN],vis[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AddEdge</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> c,<span class="keyword">double</span> fl)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	to[++cnt]=v;</span><br><span class="line">	nxt[cnt]=fst[u];</span><br><span class="line">	fst[u]=cnt;</span><br><span class="line">	w[cnt]=c;</span><br><span class="line">	cot[cnt]=fl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Spfa</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=S;i&lt;=T;i++) dis[i]=inf;</span><br><span class="line">	<span class="built_in">memset</span>(inq,<span class="number">0</span>,<span class="keyword">sizeof</span>(inq));</span><br><span class="line">	q.push_front(T);</span><br><span class="line">	dis[T]=<span class="number">0</span>;</span><br><span class="line">	inq[T]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(!q.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> u=q.front();</span><br><span class="line">		q.pop_front();</span><br><span class="line">		inq[u]=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=fst[u];i;i=nxt[i])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> v=to[i];</span><br><span class="line">			<span class="keyword">if</span>(dis[v]&gt;dis[u]-cot[i] &amp;&amp; w[i^<span class="number">1</span>])</span><br><span class="line">			&#123;</span><br><span class="line">				dis[v]=dis[u]-cot[i];</span><br><span class="line">				<span class="keyword">if</span>(!inq[v])</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="keyword">if</span>(!q.empty() &amp;&amp; dis[v]&lt;dis[q.front()]) q.push_front(v);</span><br><span class="line">					<span class="keyword">else</span> q.push_back(v);</span><br><span class="line">					inq[v]=<span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dis[S]!=inf;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Dfs</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> flow)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vis[u]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(u==T || !flow) <span class="keyword">return</span> flow;</span><br><span class="line">	<span class="keyword">int</span> used=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> &amp;i=cur[u];i;i=nxt[i])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> v=to[i];</span><br><span class="line">		<span class="keyword">if</span>(dis[v]==dis[u]-cot[i] &amp;&amp; w[i] &amp;&amp; !vis[v])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> fl=Dfs(v,min(flow,w[i]));</span><br><span class="line">			<span class="keyword">if</span>(fl)</span><br><span class="line">			&#123;</span><br><span class="line">				used+=fl;</span><br><span class="line">				flow-=fl;</span><br><span class="line">				w[i]-=fl;</span><br><span class="line">				w[i^<span class="number">1</span>]+=fl;</span><br><span class="line">				<span class="keyword">if</span>(!flow) <span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> used;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">zkwMCMF</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(Spfa())</span><br><span class="line">	&#123;</span><br><span class="line">		vis[T]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span>(vis[T])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">			<span class="built_in">memcpy</span>(cur,fst,<span class="keyword">sizeof</span>(fst));</span><br><span class="line">			<span class="keyword">int</span> fl=Dfs(S,inf);</span><br><span class="line">			maxflow+=fl;</span><br><span class="line">			mincost+=dis[S]*fl;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	mincost=-mincost;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Check</span><span class="params">(<span class="keyword">double</span> mid)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	maxflow=mincost=<span class="number">0</span>;</span><br><span class="line">	cnt=<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">memset</span>(fst,<span class="number">0</span>,<span class="keyword">sizeof</span>(fst));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		AddEdge(S,i,<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">		AddEdge(i,S,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=n+<span class="number">1</span>;i&lt;=n*<span class="number">2</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		AddEdge(i,T,<span class="number">1</span>,<span class="number">0</span>);</span><br><span class="line">		AddEdge(T,i,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			AddEdge(i,j+n,<span class="number">1</span>,-a[i][j]+b[i][j]*mid);</span><br><span class="line">			AddEdge(j+n,i,<span class="number">0</span>,a[i][j]-b[i][j]*mid);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	zkwMCMF();</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">fabs</span>(mincost)&lt;=eps || mincost&gt;eps;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	S=<span class="number">0</span>;</span><br><span class="line">	T=n*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++) <span class="built_in">scanf</span>(<span class="string">"%lf"</span>,&amp;a[i][j]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++) <span class="built_in">scanf</span>(<span class="string">"%lf"</span>,&amp;b[i][j]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">double</span> l=<span class="number">0</span>,r=<span class="number">1e4</span>;</span><br><span class="line">	<span class="keyword">while</span>(r-l&gt;eps)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">double</span> mid=(l+r)/<span class="number">2.0</span>;</span><br><span class="line">		<span class="keyword">if</span>(Check(mid)) l=mid;</span><br><span class="line">		<span class="keyword">else</span> r=mid;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%.6lf\n"</span>,r);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -172,6 +179,25 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">费用流</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分数规划</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -222,7 +248,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACM0lEQVR42u3aQW7DMAwF0dz/0u6miwCt5fmkE8DUaBU4ja3nBUtSfL3wOt7W3yvv19d/f3bns1/dvGTIkPFYxrFc6wesH7xmnyHJr/55ogwZMjZgkE3Uts4DcS1My5AhQwZnrO9DNkdehAwZMmTUGDyhJMFahgwZMjpFbFqaksYcfxG31eIyZMh4IIN33b//+SPnGzJkyHgU4wgXp/JQ29nP7z1lyJAxmsEDXC1xrA1VpPuRIUPGngw+eMGL2xQWl6wyZMgYyiBtsnSE4nNHCKffypAhYwNGbdyBB9B+KXuRGsqQIWM0Ix35SltgtbQy3YkMGTJmM2opWtogq41uBKWsDBkyRjP6rTGSDqaBu/j6ZMiQMZTBk0JURuJWXefbi1pchgwZ4xjpttJyt3Z02hoykyFDxgaMu67zxK4T9GXIkLEDo3a42HkdnYBenBmRIUPGCAaJYCRpq2E67bY49suQIeOBjE7Tn2doJOEjL+si6MuQIWM0g7fPSHONbIUfeQZHAjJkyBjNSINpmg7WwOnhqAwZMvZkdEJtLeFLhzBkyJCxG4N8JoOnvDxOjyVQwJUhQ8Y4xhGu2pEkSRl52w4lhTJkyBjE4KsPrh1/8mRRhgwZsxlkQ/2tpMlf3OCTIUPGBgxe9daK3nSL6TSFDBkyZPAilo9zpWNhaCBMhgwZMm5qmaUtPFQwy5AhYwMGKWL5OEW6dX7YcEO7TYYMGQ9k1EYcOoNc/Piz829AhgwZIxg/TZwZBgH+kiMAAAAASUVORK5CYII=" alt="微信分享二维码">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aS5LDMAhF0ex/0+4FpKzcB3JXGV2NUvlZxwMMgs8Hr+tr3X26fif91eYlQ4aM1zKu5SKXXP9q/f27b/KryJAh4xzGXQRbv17/T7AJHKZv35chQ4YMnOSRVI9gZMiQIaPD4MXtmr1OBGXIkCGjVsSut8IXvx2P1OIyZMh4IYOfuv//60f6GzJkyHgVox8oSUqXpo/xrmTIkDGawQNcZ8yCtDBJUf1jPzJkyBjK6AxJpCGYB1keplEFLEOGjEEM3iqohU4+dpbeXBkyZMxm9NuNacnKbxm/oTJkyJjNIEGNl6xPDGSQYliGDBknMPp/RBK+2tMAlbIyZMg4gBEUh+3BCF4GBzuRIUPGaAYPc/2kML0WL5VlyJAxm1EboQiaizhYrwE/bpwMGTJGM/qlaa09UBsp25B7ypAh47WMtEnZH//iwxNxhitDhoxxjAsvHpTTMnVbqJUhQ8ZoRlpSkvCaDliQIvb2fRkyZIxm9GvAdJAiPebjv5UhQ8Zsxq4L81YlD7hB6JchQ8YBjNqwxa7RsU7pK0OGDBn8wp1xDd5rLQZcGTJkvJZRO+hPt8u3tSEplCFDxjgGX2lqyAN0OmDBHwkyZMiYxEhLVnKgX0v1eMCNnx4yZMgYwUiPzGqH/p0kclsLU4YMGQcweKFbK33TMQ4ZMmTI4IxOUZqOdNwWsTJkyBjNIJvrtA34IRpvXsqQIeMcRm3EYW+YTsc4io1MGTJkvI/xBzRZDyzDE/DhAAAAAElFTkSuQmCC" alt="微信分享二维码">
     </div>
 </div>
 
@@ -236,18 +262,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/01/22/Tree_Split_Train/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          树链剖分瞎入门
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/01/22/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello the Cruel World</div>
+    <a href="/2019/01/23/chtholly_tree_note/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">珂朵莉树（ODT）学习笔记</div>
       <i class="icon-circle-right"></i>
     </a>
   
