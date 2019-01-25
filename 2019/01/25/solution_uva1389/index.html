@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
-  <title>Tag: 费用流 | Venus&#39; Blog</title>
+  <title>题解 UVA1389 Hard Life | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Venus&#39; Blog">
-<meta property="og:url" content="http://VenusNero.github.io/tags/费用流/index.html">
+  <meta name="description" content="最大权闭合子图 + 分数规划。这道题就是让求最大密度子图，使 $\frac{\sum Edge}{\sum Dot}$ 最大，那么我们可以用分数规划的思想，二分答案这个比值，建图，超级源到所有点的容量为 $m$，所有点到超级汇的容量为 $m+mid\times2-deg[i]$，其他的按原图建，跑最大流，用 $n\times m$ 减去最大流，判断是否为 $0$，最后用答案跑一遍 $Dinic$，">
+<meta name="keywords" content="题解,分数规划,最大流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 UVA1389 Hard Life">
+<meta property="og:url" content="http://VenusNero.github.io/2019/01/25/solution_uva1389/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
+<meta property="og:description" content="最大权闭合子图 + 分数规划。这道题就是让求最大密度子图，使 $\frac{\sum Edge}{\sum Dot}$ 最大，那么我们可以用分数规划的思想，二分答案这个比值，建图，超级源到所有点的容量为 $m$，所有点到超级汇的容量为 $m+mid\times2-deg[i]$，其他的按原图建，跑最大流，用 $n\times m$ 减去最大流，判断是否为 $0$，最后用答案跑一遍 $Dinic$，">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-25T13:10:03.811Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Venus&#39; Blog">
+<meta name="twitter:title" content="题解 UVA1389 Hard Life">
+<meta name="twitter:description" content="最大权闭合子图 + 分数规划。这道题就是让求最大密度子图，使 $\frac{\sum Edge}{\sum Dot}$ 最大，那么我们可以用分数规划的思想，二分答案这个比值，建图，超级源到所有点的容量为 $m$，所有点到超级汇的容量为 $m+mid\times2-deg[i]$，其他的按原图建，跑最大流，用 $n\times m$ 减去最大流，判断是否为 $0$，最后用答案跑一遍 $Dinic$，">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -140,36 +145,37 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-solution_uva1389" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/25/solution_p3705/" class="archive-article-date">
-  	<time datetime="2019-01-25T05:34:07.627Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-25</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/25/solution_p3705/">题解 P3705 [SDOI2017]新生舞会</a>
+    <h1 class="article-title" itemprop="name">
+      题解 UVA1389 Hard Life
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/01/25/solution_uva1389/" class="archive-article-date">
+  	<time datetime="2019-01-25T13:10:01.030Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最大权闭合子图 + 分数规划。这道题就是让求最大密度子图，使 $\frac{\sum Edge}{\sum Dot}$ 最大，那么我们可以用分数规划的思想，二分答案这个比值，建图，超级源到所有点的容量为 $m$，所有点到超级汇的容量为 $m+mid\times2-deg[i]$，其他的按原图建，跑最大流，用 $n\times m$ 减去最大流，判断是否为 $0$，最后用答案跑一遍 $Dinic$，在残流网络上跑一遍 $\text{Dfs}$，得到选择的点，一波输出即可。</p>
+<p>注意，二分答案时 $eps$ 不能设太小，否则会出错。</p>
+<p>本文同步发表于笔者的博客：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 1005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXM 100005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> eps 1e-8</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> inf 1e18</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">queue</span> &lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line"><span class="keyword">int</span> cnt,fst[MAXN],nxt[MAXM&lt;&lt;<span class="number">1</span>],to[MAXM&lt;&lt;<span class="number">1</span>],cur[MAXN];</span><br><span class="line"><span class="keyword">int</span> n,m,S,T,fr[MAXM],tx[MAXM],dep[MAXN],deg[MAXN],ans;</span><br><span class="line"><span class="keyword">bool</span> vis[MAXN];</span><br><span class="line"><span class="keyword">double</span> w[MAXM&lt;&lt;<span class="number">1</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AddEdge</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">double</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	to[++cnt]=v;</span><br><span class="line">	nxt[cnt]=fst[u];</span><br><span class="line">	fst[u]=cnt;</span><br><span class="line">	w[cnt]=c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Spfa</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(dep,<span class="number">0</span>,<span class="keyword">sizeof</span>(dep));</span><br><span class="line">	q.push(S);</span><br><span class="line">	dep[S]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(!q.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> u=q.front();</span><br><span class="line">		q.pop();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=fst[u];i;i=nxt[i])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> v=to[i];</span><br><span class="line">			<span class="keyword">if</span>(!dep[v] &amp;&amp; w[i]&gt;eps)</span><br><span class="line">			&#123;</span><br><span class="line">				dep[v]=dep[u]+<span class="number">1</span>;</span><br><span class="line">				q.push(v);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dep[T];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">Dfs</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">double</span> flow)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(u==T || flow==<span class="number">0</span>) <span class="keyword">return</span> flow;</span><br><span class="line">	<span class="keyword">double</span> used=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> &amp;i=cur[u];i;i=nxt[i])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> v=to[i];</span><br><span class="line">		<span class="keyword">if</span>(dep[v]==dep[u]+<span class="number">1</span> &amp;&amp; w[i]&gt;eps)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">double</span> fl=Dfs(v,min(flow,w[i]));</span><br><span class="line">			<span class="keyword">if</span>(fl&gt;<span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				used+=fl;</span><br><span class="line">				flow-=fl;</span><br><span class="line">				w[i]-=fl;</span><br><span class="line">				w[i^<span class="number">1</span>]+=fl;</span><br><span class="line">				<span class="keyword">if</span>(<span class="built_in">fabs</span>(flow)&lt;eps) <span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> used;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">Dinic</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> sum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(Spfa())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">memcpy</span>(cur,fst,<span class="keyword">sizeof</span>(fst));</span><br><span class="line">		sum+=Dfs(S,inf);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Check</span><span class="params">(<span class="keyword">double</span> mid)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	cnt=<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">memset</span>(fst,<span class="number">0</span>,<span class="keyword">sizeof</span>(fst));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		AddEdge(S,i,m);</span><br><span class="line">		AddEdge(i,S,<span class="number">0</span>);</span><br><span class="line">		AddEdge(i,T,m*<span class="number">1.0</span>+mid*<span class="number">2.0</span>-deg[i]*<span class="number">1.0</span>);</span><br><span class="line">		AddEdge(T,i,<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		AddEdge(fr[i],tx[i],<span class="number">1</span>);</span><br><span class="line">		AddEdge(tx[i],fr[i],<span class="number">0</span>);</span><br><span class="line">		AddEdge(tx[i],fr[i],<span class="number">1</span>);</span><br><span class="line">		AddEdge(fr[i],tx[i],<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> n*m-Dinic()&gt;eps;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FindAns</span><span class="params">(<span class="keyword">int</span> u)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vis[u]=<span class="number">1</span>;</span><br><span class="line">	ans++;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=fst[u];i;i=nxt[i])</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> v=to[i];</span><br><span class="line">		<span class="keyword">if</span>(!vis[v] &amp;&amp; w[i]&gt;eps) FindAns(v);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;n,&amp;m))</span><br><span class="line">	&#123;</span><br><span class="line">		S=<span class="number">0</span>;</span><br><span class="line">		T=n+<span class="number">1</span>;</span><br><span class="line">		ans=<span class="number">0</span>;</span><br><span class="line">		<span class="built_in">memset</span>(deg,<span class="number">0</span>,<span class="keyword">sizeof</span>(deg));</span><br><span class="line">		<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">		<span class="keyword">if</span>(!m)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d\n%d\n\n"</span>,<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> x,y;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;x,&amp;y);</span><br><span class="line">			fr[i]=x;</span><br><span class="line">			tx[i]=y;</span><br><span class="line">			deg[x]++;</span><br><span class="line">			deg[y]++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">double</span> l=<span class="number">0</span>,r=m;</span><br><span class="line">		<span class="keyword">while</span>(r-l&gt;<span class="number">1e-6</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">double</span> mid=(l+r)/<span class="number">2.0</span>;</span><br><span class="line">			<span class="keyword">if</span>(Check(mid)) l=mid;</span><br><span class="line">			<span class="keyword">else</span> r=mid;</span><br><span class="line">		&#125;</span><br><span class="line">		Check(l);</span><br><span class="line">		FindAns(S);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans<span class="number">-1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="keyword">if</span>(vis[i]) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,i);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -179,29 +185,142 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">费用流</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分数规划</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分数规划</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">最大流</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACOUlEQVR42u3aS27DMAwFwNz/0um2QGDnkXQLSBqvAtcfjRcsRfL1io/3x/H7/NXvq7/eX/N55WMHBgbGsoz37ZG8cnJX/jmu7sXAwDiHcRXB7q+5f041pCZh+vI8BgYGxjiMRkuJPx8GBgZGwrgPlHkYrW59MTAwTmYk29FepevL5jMI2Q/vxTEwMBZk5FX3///9J/0NDAyMpRiTQHl/ptfObK4KAwNja0a16D8p/VfTxPJ6MDAwNmVURyUmzcsk3UyaDYXUEAMDYztGrwGQl+HmZbVLNgYGxgGMauUqD529zXDeXsXAwDiBMX/cPImsJpdRPxYDA2MjRl6yzwNfXnqbpJKFRWBgYCzOeHbAohq4k5Rx8m8AAwNjD0YSKHsltrzBWS2xfdmLY2BgbM3Ib5u0POejY9G0CAYGxtaMeQKXbzurI2WjGh4GBsbijCTtKw9A/EFhrjkzgoGBsThjvvRJWpk3LMsNAAwMjO0YOS8f8JoMk1XHMjAwME5g9IJg3tR86o1fElAMDIwDGNWhil6hv3d9tCoMDIwDGNXBrLyRmZfVqlvfURTHwMBYlpGXzHqYZGgj31pfBlwMDIyNGO/iUW0k5BvaXuR85V8IAwNjWUa1STB5UA/WG+zAwMDYj/FskJ0PSeTPxMDAOI3RC3zJmclnKgRuDAwMjNvX9CbRqmNhUWMAAwMDo7iUvMGQNzgvn4CBgXEAI0ndemNbydDGPEBjYGDszaiOOOQNg96Y11NsDAyMLRg/JQoi4IBo/08AAAAASUVORK5CYII=" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/01/25/solution_p3199/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">题解 P3199 [HNOI2009]最小圈</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+  
+  
   
 
-    
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "Ju5O3gfp1VuOiq3H3n2mJRno-gzGzoHsz",
+            app_key: "mcneJFo3HplPlaaRpVKMXPTF",
+            placeholder: "Say something.",
+            avatar:"mm"
+        });
+    }
+</script>
+  </section>
+
+
+  
+
+  
+
+  
 
 
           </div>
@@ -237,9 +356,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
