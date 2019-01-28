@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Venus&#39; Blog">
 <meta property="og:description" content="网络流。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-27T07:27:22.899Z">
+<meta property="og:updated_time" content="2019-01-28T05:06:10.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 P2526 【[SHOI2001]小狗散步】">
 <meta name="twitter:description" content="网络流。">
@@ -166,7 +166,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>网络流。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=456359605&auto=1&height=66"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=456359605&auto=0&height=66"></iframe>
 
 <a id="more"></a>
 <p>将集合点作为左点，景点作为右点，可以创建出一个二分图，而我们要求的就是它的最大匹配。那么边怎么连呢？我们枚举每个景点 $i$ 和每个集合点 $j$，如果主人从这个集合点 $j$ 到下一个集合点 $j+1$ 需要的时间，比小狗从这个集合点 $j$ 到景点 $i$ 再到下一个集合点 $j+1$ 的时间要长的话，我们就可以在集合点 $j$ 到景点 $i$ 中间连一条边，因为小狗的速度是主人的两倍，所以我们将主人的时间 $\times 2$，或者将小狗的时间 $÷2$，再作比较即可。</p>

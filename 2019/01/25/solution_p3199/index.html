@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Venus&#39; Blog">
 <meta property="og:description" content="负环 + 分数规划。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-25T12:00:38.564Z">
+<meta property="og:updated_time" content="2019-01-28T05:06:26.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 P3199 [HNOI2009]最小圈">
 <meta name="twitter:description" content="负环 + 分数规划。">
@@ -166,7 +166,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>负环 + 分数规划。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=409649817&auto=1&height=66"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=409649817&auto=0&height=66"></iframe>
 
 <a id="more"></a>
 <p>这道题的做法和 <a href="https://www.luogu.org/problemnew/show/P3199" target="_blank" rel="noopener"><code>P3288 [SCOI2014]方伯伯运椰子</code></a> 比较相似，所以做着比较快。我们依然要求最小的 $C=\frac{\sum_{i=1}^{k}a’[i]}{\sum_{i=1}^{k}b’[i]}, b[i]=1$，也就是最优比率环，可以得到一个分数规划模型，化一下可以得到 $\sum_{i=1}^{k}a’[i]-C\sum_{i=1}^{k}b’[i]=0$，因为 $b’[i]=1$，得到 $\sum_{i=1}^{k}a’[i]-C=0$，所以我们将所有边权 $-C$，最后判一下是否有负环即可。</p>

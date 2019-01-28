@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Venus&#39; Blog">
 <meta property="og:description" content="最大权闭合子图 + 分数规划。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-25T23:33:44.701Z">
+<meta property="og:updated_time" content="2019-01-28T05:06:38.351Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 UVA1389 Hard Life">
 <meta name="twitter:description" content="最大权闭合子图 + 分数规划。">
@@ -166,7 +166,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>最大权闭合子图 + 分数规划。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=436016474&auto=1&height=66"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=436016474&auto=0&height=66"></iframe>
 
 <a id="more"></a>
 <p>这道题就是让求最大密度子图，使 $\frac{\sum Edge}{\sum Dot}$ 最大，那么我们可以用分数规划的思想，二分答案这个比值，建图，超级源到所有点的容量为 $m$，所有点到超级汇的容量为 $m+mid\times2-deg[i]$，其他的按原图建，跑最大流，用 $n\times m$ 减去最大流，判断是否为 $0$，最后用答案跑一遍 $Dinic$，在残流网络上跑一遍 $\text{Dfs}$，得到选择的点，一波输出即可。</p>

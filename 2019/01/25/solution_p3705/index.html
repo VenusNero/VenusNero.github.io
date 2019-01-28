@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Venus&#39; Blog">
 <meta property="og:description" content="二分图最佳匹配 + 分数规划。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-25T05:34:07.738Z">
+<meta property="og:updated_time" content="2019-01-28T05:06:34.606Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 P3705 [SDOI2017]新生舞会">
 <meta name="twitter:description" content="二分图最佳匹配 + 分数规划。">
@@ -166,7 +166,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>二分图最佳匹配 + 分数规划。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=22677451&auto=1&height=66"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=22677451&auto=0&height=66"></iframe>
 
 <a id="more"></a>
 <p>读题，发现要求最优配对，很显然，这个图是一张二分图，那么最佳匹配我们可以用 $\text{KM}$ 或者 费用流 来求出，这里不赘述如何求出最佳匹配。我们来考虑怎么计算这个 $C=\frac{\sum_{i=1}^{k}a’[i]}{\sum_{i=1}^{k}b’[i]}$。显然，这里的 $\sum_{i=1}^{k}b’[i]$ 是非常不好处理的，所以我们要引入<strong>分数规划</strong>的思想，将这个式子转化成 $\sum_{}^{}a’-C\sum_{}^{}b’=0$，然后二分答案 $C$，每次 $\text{Check}$ 都跑一遍最佳匹配，边权就设成 $a[i][j]-mid\times b[i][j]$，然后跑最大权最佳匹配（也就是最大费用最大流），判断最后得到的权和是否为 $0$ 即可。</p>

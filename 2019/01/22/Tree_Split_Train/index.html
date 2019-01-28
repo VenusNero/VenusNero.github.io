@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://wx2.sinaimg.cn/mw690/0060lm7Tly1fz0h5yjtv0j30e50c3746.jpg">
 <meta property="og:image" content="http://wx2.sinaimg.cn/mw690/0060lm7Tly1fz0hrjunzpj30el0cogll.jpg">
-<meta property="og:updated_time" content="2019-01-25T03:16:51.580Z">
+<meta property="og:updated_time" content="2019-01-28T05:06:42.943Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树链剖分瞎入门">
 <meta name="twitter:description" content="本文旨在让读者背代码 前言在做题时，我们可能会遇到这样一类问题：  给定一棵 $n$ 个结点的树和 $m$ 次操作，操作有两种，一种是给定两个结点，让连接两个结点的路径上的所有点权值加上一个值，另一种是查询路径上所有点的权值和。$n\le 1e5$，$m\le 2e5$。  如果是最后统一输出结点权值，用树上差分+$\text{DFS}$ 就能轻松水过，而对于在线查询，如果数据范围小的话暴力即可">
@@ -174,7 +174,7 @@
 <p>给定一棵 $n$ 个结点的树和 $m$ 次操作，操作有两种，一种是给定两个结点，让连接两个结点的路径上的所有点权值加上一个值，另一种是查询路径上所有点的权值和。$n\le 1e5$，$m\le 2e5$。</p>
 </blockquote>
 <p>如果是最后统一输出结点权值，用树上差分+$\text{DFS}$ 就能轻松水过，而对于在线查询，如果数据范围小的话暴力即可 $\text{AC}$，时间复杂度 $\text{O}(nm)$，但是很明显，这个数据范围肯定不能这么写了。此时，就需要树链剖分出场了。</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=496869422&auto=1&height=66"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=496869422&auto=0&height=66"></iframe>
 
 <a id="more"></a>
 <h1 id="树链剖分"><a href="#树链剖分" class="headerlink" title="树链剖分"></a>树链剖分</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>树链剖分是根据轻重儿子，将一棵树剖成多条链，然后就可以用数据结构来维护这些链了，听着似乎还是有点像暴力，不过因为一条链有多个结点，所以可以优化时间复杂度。</p>
