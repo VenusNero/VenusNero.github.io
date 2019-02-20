@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://VenusNero.github.io/"/>
-  <updated>2019-02-12T07:31:59.510Z</updated>
+  <updated>2019-02-20T08:24:04.992Z</updated>
   <id>http://VenusNero.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>莫比乌斯反演 &amp; 杜教筛学习笔记</title>
+    <link href="http://VenusNero.github.io/2019/02/20/mobius_inverse_note/"/>
+    <id>http://VenusNero.github.io/2019/02/20/mobius_inverse_note/</id>
+    <published>2019-02-20T08:14:36.237Z</published>
+    <updated>2019-02-20T08:24:04.992Z</updated>
+    
+    <content type="html"><![CDATA[<p>莫比乌斯反演这个东西……怎么说呢，只是看着非常难非常高大上，但是原理其实挺好理解的……不过通常都只是用于推导，还要配合数论分块或者筛法食用，不同情景不同思考，还是很需要随机应变的。</p><p>（数论题天下第二毒瘤！）</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1332491711&auto=0&height=66"></iframe><a id="more"></a><h1 id="莫比乌斯反演"><a href="#莫比乌斯反演" class="headerlink" title="莫比乌斯反演"></a>莫比乌斯反演</h1><h2 id="积性函数"><a href="#积性函数" class="headerlink" title="积性函数"></a>积性函数</h2><p>当 $f(a)\times f(b)=f(ab)$，其中仅在 $a$ 与 $b$ 互质的情况下成立的函数为积性函数，在所有情况下成立的函数为完全积性函数。</p><p>常见的积性函数：$\phi$，$\mu$，$etc.$</p><p>常见的完全积性函数：$I$，$\epsilon$，$id$，$etc.$</p><p>其中 $\mu$ 为莫比乌斯函数，其定义如下：</p><script type="math/tex; mode=display">\mu(n)=\left\{\begin{array}{rcl}1       &      & {n=1}\\(-1)^k     &      & {n=\prod_{i=1}^{k}p_i\ \ \ \forall p_i\not= p_j}\\0     &      & {otherwise.}\end{array} \right.</script><p>当一个数拥有 $2$ 个及以上的质因子的时候，它的莫比乌斯函数的值就是 $0$，不然就和质因子个数有关。</p><p>关于其他函数的解释：$I(x)=1$，$\epsilon(x)=[x=1]$，$id(x)=x$，其中 $\epsilon$ 被称为莫比乌斯反演的“单位元”。</p><hr><h2 id="狄利克雷卷积"><a href="#狄利克雷卷积" class="headerlink" title="狄利克雷卷积"></a>狄利克雷卷积</h2><p>这个算是前置芝士了，狄利克雷卷积的符号为 $ * $ ，$(f * g)$ 代表 $f$ 和 $g$ 的卷积，公式是这样的：</p><script type="math/tex; mode=display">(f * g)(d)=\sum_{d|n}{f(d)g(\frac{n}{d})}</script><p>这个应该很好背，经常要用上，它满足交换律、结合律、逐点加的分配律，是一个相当重要的式子。</p><hr><h2 id="莫比乌斯反演-1"><a href="#莫比乌斯反演-1" class="headerlink" title="莫比乌斯反演"></a>莫比乌斯反演</h2><p>先给出一些结论：</p><ol><li><p>$\mu * I=\epsilon$</p><p>证明：</p><script type="math/tex; mode=display">\mu * I=\sum_{d|n}\mu(d)I(\frac{n}{d})=\sum_{d|n}\mu(d)=[n=1]=\epsilon</script></li><li><p>$\phi * I=id(n)$</p><p>证明：</p><script type="math/tex; mode=display">\phi * I=\sum_{d|n}\phi(d)I(\frac{n}{d})=\sum_{d|n}\phi(d)=n=id(n)</script></li><li><p>$id * \mu=\phi$</p><p>证明：</p><script type="math/tex; mode=display">id * \mu=\phi \rightarrow \phi * I * \mu=id * \mu \rightarrow \phi * \epsilon=id * \mu \rightarrow \phi=id * \mu</script></li></ol><p>然后莫比乌斯反演就只有一个式子，如下：</p><p>若：</p><script type="math/tex; mode=display">f(n)=\sum_{d|n}g(d)</script><p>则有：</p><script type="math/tex; mode=display">g(n)=\sum_{d|n}f(\frac{n}{d})\mu(d)</script><p>就没了（</p><p>所以说莫比乌斯反演大多数都是用来推的，真正算还是要用其他的方法辅助。</p><p>证明：</p><script type="math/tex; mode=display">f * \mu=g * I * \mu=g * \epsilon=g</script><hr><h1 id="杜教筛"><a href="#杜教筛" class="headerlink" title="杜教筛"></a>杜教筛</h1><p>杜教筛是用来求积性函数前缀和，即：</p><script type="math/tex; mode=display">S(n)=\sum_{i=1}^{n}f(i)</script><p>这个函数的值的，那么怎么求呢？</p><p>我们再找一个积性函数 $g$，考虑 $(f * g)$ 的前缀和：</p><script type="math/tex; mode=display">\sum_{i=1}^{n}(f * g)(i)=\sum_{i=1}^{n}\sum_{d|i}f(d)g(\frac{i}{d})=\sum_{d=1}^{n}g(d)\sum_{i=1}^{\lfloor \frac{n}{d}\rfloor }f(i)=\sum_{d=1}^{n}g(d)S(\lfloor \frac{n}{d}\rfloor)</script><p>接下来要怎么求呢？考虑 $g(1)S(n)$，利用容斥可以求出：</p><script type="math/tex; mode=display">g(1)S(n)=\sum_{i=1}^{n}g(i)S(\lfloor \frac{n}{i}\rfloor)-\sum_{i=2}^{n}g(i)S(\lfloor \frac{n}{i}\rfloor)</script><p>将之前求出的代入，可得：</p><script type="math/tex; mode=display">=\sum_{i=1}^{n}(f * g)(i)-\sum_{i=2}^{n}g(i)S(\lfloor \frac{n}{i}\rfloor)</script><p>这个就是杜教筛的核心式了，我们可以通过找到一个合适的 $g$，使得 $f * g$ 和 $g$ 的前缀和好球，然后利用数论分块递归求解就可以了。裸杜教筛的时间复杂度是 $\text{O}(n^{\frac{3}{4}})$，预处理一下可以优化到 $\text{O}(n^{\frac{2}{3}})$。</p><p>至于怎么选择 $g$，以模板题为例，求 $\mu$ 和 $\phi$ 的前缀和，因为之前有说过，$\mu * I=\epsilon$，$I$ 和 $\epsilon$ 的前缀和自然都很弱智，一个是 $n$，另一个是 $1$。</p><p>至于 $\phi$ 的前缀和，之前也有说，$\phi * I=id$，$I$ 和 $id$ 的前缀和自然也很好求，一个是 $n$，一个是 $\frac{n(n+1)}{2}$。</p><hr><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>杜教筛的限制好像还挺大的……虽然也挺好写，$\text{min}$_$\text{25}$ 筛这种神仙算法还是到时候再说吧（</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;莫比乌斯反演这个东西……怎么说呢，只是看着非常难非常高大上，但是原理其实挺好理解的……不过通常都只是用于推导，还要配合数论分块或者筛法食用，不同情景不同思考，还是很需要随机应变的。&lt;/p&gt;
+&lt;p&gt;（数论题天下第二毒瘤！）&lt;/p&gt;
+&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;//music.163.com/outchain/player?type=2&amp;id=1332491711&amp;auto=0&amp;height=66&quot;&gt;&lt;/iframe&gt;
+    
+    </summary>
+    
+    
+      <category term="学习笔记" scheme="http://VenusNero.github.io/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="数论" scheme="http://VenusNero.github.io/tags/%E6%95%B0%E8%AE%BA/"/>
+    
+      <category term="莫比乌斯反演" scheme="http://VenusNero.github.io/tags/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/"/>
+    
+      <category term="杜教筛" scheme="http://VenusNero.github.io/tags/%E6%9D%9C%E6%95%99%E7%AD%9B/"/>
+    
+  </entry>
   
   <entry>
     <title>题解 模拟赛 2-12</title>
