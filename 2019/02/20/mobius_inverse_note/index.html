@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Venus&#39; Blog">
 <meta property="og:description" content="莫比乌斯反演这个东西……怎么说呢，只是看着非常难非常高大上，但是原理其实挺好理解的……不过通常都只是用于推导，还要配合数论分块或者筛法食用，不同情景不同思考，还是很需要随机应变的。 （数论题天下第二毒瘤！）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-20T08:24:04.992Z">
+<meta property="og:updated_time" content="2019-02-20T13:21:50.207Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="莫比乌斯反演 &amp; 杜教筛学习笔记">
 <meta name="twitter:description" content="莫比乌斯反演这个东西……怎么说呢，只是看着非常难非常高大上，但是原理其实挺好理解的……不过通常都只是用于推导，还要配合数论分块或者筛法食用，不同情景不同思考，还是很需要随机应变的。 （数论题天下第二毒瘤！）">
@@ -215,7 +215,7 @@
 <p>我们再找一个积性函数 $g$，考虑 $(f * g)$ 的前缀和：</p>
 <script type="math/tex; mode=display">\sum_{i=1}^{n}(f * g)(i)=\sum_{i=1}^{n}\sum_{d|i}f(d)g(\frac{i}{d})=\sum_{d=1}^{n}g(d)\sum_{i=1}^{\lfloor \frac{n}{d}\rfloor }f(i)=\sum_{d=1}^{n}g(d)S(\lfloor \frac{n}{d}\rfloor)</script><p>接下来要怎么求呢？考虑 $g(1)S(n)$，利用容斥可以求出：</p>
 <script type="math/tex; mode=display">g(1)S(n)=\sum_{i=1}^{n}g(i)S(\lfloor \frac{n}{i}\rfloor)-\sum_{i=2}^{n}g(i)S(\lfloor \frac{n}{i}\rfloor)</script><p>将之前求出的代入，可得：</p>
-<script type="math/tex; mode=display">=\sum_{i=1}^{n}(f * g)(i)-\sum_{i=2}^{n}g(i)S(\lfloor \frac{n}{i}\rfloor)</script><p>这个就是杜教筛的核心式了，我们可以通过找到一个合适的 $g$，使得 $f * g$ 和 $g$ 的前缀和好球，然后利用数论分块递归求解就可以了。裸杜教筛的时间复杂度是 $\text{O}(n^{\frac{3}{4}})$，预处理一下可以优化到 $\text{O}(n^{\frac{2}{3}})$。</p>
+<script type="math/tex; mode=display">=\sum_{i=1}^{n}(f * g)(i)-\sum_{i=2}^{n}g(i)S(\lfloor \frac{n}{i}\rfloor)</script><p>这个就是杜教筛的核心式了，我们可以通过找到一个合适的 $g$，使得 $f * g$ 和 $g$ 的前缀和好求，然后利用数论分块递归求解就可以了。裸杜教筛的时间复杂度是 $\text{O}(n^{\frac{3}{4}})$，预处理一下可以优化到 $\text{O}(n^{\frac{2}{3}})$。</p>
 <p>至于怎么选择 $g$，以模板题为例，求 $\mu$ 和 $\phi$ 的前缀和，因为之前有说过，$\mu * I=\epsilon$，$I$ 和 $\epsilon$ 的前缀和自然都很弱智，一个是 $n$，另一个是 $1$。</p>
 <p>至于 $\phi$ 的前缀和，之前也有说，$\phi * I=id$，$I$ 和 $id$ 的前缀和自然也很好求，一个是 $n$，一个是 $\frac{n(n+1)}{2}$。</p>
 <hr>
