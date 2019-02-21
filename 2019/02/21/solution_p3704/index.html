@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
-  <title>Tag: 数论 | Venus&#39; Blog</title>
+  <title>题解 P3704 [SDOI2017]数字表格 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Venus&#39; Blog">
-<meta property="og:url" content="http://VenusNero.github.io/tags/数论/index.html">
+  <meta name="description" content="莫比乌斯反演。 （什么毒瘤题啊这是……）">
+<meta name="keywords" content="题解,数论,莫比乌斯反演">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 P3704 [SDOI2017]数字表格">
+<meta property="og:url" content="http://VenusNero.github.io/2019/02/21/solution_p3704/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
+<meta property="og:description" content="莫比乌斯反演。 （什么毒瘤题啊这是……）">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-21T02:35:40.446Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Venus&#39; Blog">
+<meta name="twitter:title" content="题解 P3704 [SDOI2017]数字表格">
+<meta name="twitter:description" content="莫比乌斯反演。 （什么毒瘤题啊这是……）">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -146,36 +151,56 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-solution_p3704" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/21/solution_p3704/" class="archive-article-date">
-  	<time datetime="2019-02-21T02:35:40.311Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/21/solution_p3704/">题解 P3704 [SDOI2017]数字表格</a>
+    <h1 class="article-title" itemprop="name">
+      题解 P3704 [SDOI2017]数字表格
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/02/21/solution_p3704/" class="archive-article-date">
+  	<time datetime="2019-02-21T02:35:40.311Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>莫比乌斯反演。</p>
+<p>（什么毒瘤题啊这是……）</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1345820742&auto=0&height=66"></iframe>
+
+<a id="more"></a>
+<p>要求：</p>
+<script type="math/tex; mode=display">\prod_{i=1}^{n}\prod_{j=1}^{n}f_{gcd(i,j)}</script><p>（其中 $f_i$ 为斐波那契数列的第 $i$ 项）</p>
+<p>出现了 $gcd$，那么就用一个惯用技巧：枚举之，所以式子变成：</p>
+<script type="math/tex; mode=display">\prod_{d=1}^{n}\prod_{i=1}^{n}\prod_{j=1}^{m}f_d\times[gcd(i,j)=d]</script><p>因为有许多重复的 $f_d$ 被记录到答案里，我们不妨将它化成 $f_d^x$ 的形式，如下：</p>
+<script type="math/tex; mode=display">\prod_{d=1}^{n}f_d ^{\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j)=d]}</script><p>上面这坨好像有点眼熟？单独拎出来看看：</p>
+<script type="math/tex; mode=display">\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j)=d]</script><p>这也太熟悉了吧……化简之：</p>
+<script type="math/tex; mode=display">=\sum_{i=1}^{n\over d}\sum_{j=1}^{m\over d}[gcd(i,j)=1]</script><p>根据 $\mu$ 的性质：$\sum_{d|n}\mu(d)=[n=1]$，可以将它展开成：</p>
+<script type="math/tex; mode=display">=\sum_{i=1}^{n\over d}\sum_{j=1}^{m\over d}\sum_{k|gcd(i,j)}\mu(k)</script><p>$k|gcd(i,j)$ 看着很不爽，把它化成枚举的形式：</p>
+<script type="math/tex; mode=display">=\sum_{i=1}^{n\over d}\sum_{j=1}^{m\over d}\sum_{k=1}^{n\over d}\mu(k)\times [k|gcd(i,j)]</script><p>因为有许多重复的 $\mu(k)$ 被累加，所以我们可以将它提到前面去：</p>
+<script type="math/tex; mode=display">=\sum_{k=1}^{n\over d}\mu(k)\sum_{i=1}^{n\over d}\sum_{j=1}^{m\over d}[k|gcd(i,j)]</script><p>由于只有满足后面这个才会对答案产生贡献，所以我们可以发现，只有 $i,j$ 都是 $k$ 的倍数时能有贡献，因此可以化简出一个很经典的式子：</p>
+<script type="math/tex; mode=display">=\sum_{k=1}^{n\over d}\mu(k)\lfloor {n\over dk} \rfloor \lfloor {m\over dk} \rfloor</script><p>这个式子可以数论分块求，不赘述。</p>
+<p>回到原式，将这个代入，可得：</p>
+<script type="math/tex; mode=display">\prod_{d=1}^{n}f_d ^{\sum_{i=1}^{n\over d}\mu(k)\lfloor {n\over id} \rfloor \lfloor {m\over id} \rfloor}</script><p>按照之前某道题的套路，我们可以枚举 $id=T$，对式子进行进一步化简：</p>
+<script type="math/tex; mode=display">\prod_{T=1}^{n}\prod_{d|T}f_T^{\mu({T\over d})\lfloor {n\over T} \rfloor \lfloor {m\over T} \rfloor}</script><p>为了方便求，加个括号：</p>
+<script type="math/tex; mode=display">\prod_{T=1}^{n}(\prod_{d|T}f_T^{\mu({T\over d})})^{\lfloor {n\over T} \rfloor \lfloor {m\over T} \rfloor}</script><p>令：</p>
+<script type="math/tex; mode=display">F(n)=\prod_{d|n}f_d^{\mu({n\over d})}</script><p>则原式最终等于</p>
+<script type="math/tex; mode=display">\prod_{T=1}^{n}F(T)^{\lfloor {n\over T} \rfloor \lfloor {m\over T} \rfloor}</script><p>内层的 $F(T)$ 可以暴力求，外层的 $\lfloor {n\over T} \rfloor \lfloor {m\over T} \rfloor$ 就是一个很明显的数论分块式了，直接上数论分块就行了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 1000000</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Mod=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,pri[MAXN+<span class="number">5</span>],tot,f[MAXN+<span class="number">5</span>],inv[MAXN+<span class="number">5</span>],F[MAXN+<span class="number">5</span>],mu[MAXN+<span class="number">5</span>];</span><br><span class="line"><span class="keyword">bool</span> isp[MAXN+<span class="number">5</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">QuickPow</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> res=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(y)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(y&amp;<span class="number">1</span>) res=<span class="number">1l</span>l*res*x%Mod;</span><br><span class="line">		x=<span class="number">1l</span>l*x*x%Mod;</span><br><span class="line">		y&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetPrime</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	isp[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">	mu[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">	f[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">	inv[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=MAXN;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		f[i]=(f[i<span class="number">-1</span>]+f[i<span class="number">-2</span>])%Mod;</span><br><span class="line">		inv[i]=QuickPow(f[i],Mod<span class="number">-2</span>);</span><br><span class="line">		<span class="keyword">if</span>(!isp[i])</span><br><span class="line">		&#123;</span><br><span class="line">			pri[++tot]=i;</span><br><span class="line">			mu[i]=<span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=tot &amp;&amp; i*pri[j]&lt;=MAXN;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			isp[i*pri[j]]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(i%pri[j]) mu[i*pri[j]]=mu[i]*mu[pri[j]];</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				mu[i*pri[j]]=<span class="number">0</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=MAXN;i++) F[i]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=MAXN;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(!mu[i]) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;=MAXN;j+=i) F[j]=<span class="number">1l</span>l*F[j]*(mu[i]==<span class="number">1</span>?f[j/i]:inv[j/i])%Mod;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=MAXN;i++) F[i]=<span class="number">1l</span>l*F[i]*F[i<span class="number">-1</span>]%Mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	GetPrime();</span><br><span class="line">	<span class="keyword">int</span> Time;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;Time);</span><br><span class="line">	<span class="keyword">while</span>(Time--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;n,&amp;m);</span><br><span class="line">		<span class="keyword">if</span>(n&gt;m) swap(n,m);</span><br><span class="line">		<span class="keyword">int</span> ans=<span class="number">1</span>,INV;</span><br><span class="line">		<span class="keyword">int</span> l=<span class="number">1</span>,r;</span><br><span class="line">		<span class="keyword">while</span>(l&lt;=n)</span><br><span class="line">		&#123;</span><br><span class="line">			r=min(n/(n/l),m/(m/l));</span><br><span class="line">			INV=<span class="number">1l</span>l*F[r]*QuickPow(F[l<span class="number">-1</span>],Mod<span class="number">-2</span>)%Mod;</span><br><span class="line">			ans=<span class="number">1l</span>l*ans*QuickPow(INV,(<span class="number">1l</span>l*(n/l)*(m/l))%(Mod<span class="number">-1</span>))%Mod;</span><br><span class="line">			l=r+<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,(ans+Mod)%Mod);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -195,69 +220,132 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMElEQVR42u3aS3LCMBBFUfa/aWcBYPm+lpwqta5HlAOODoOmf58Pvq6v6+6v4zvppxZfMmTI2JZxDa8xg3yq9k5+NhkyZJzDuItg49fj5wSHwGH69r4MGTJk4CSPpHoEI0OGDBkzDH6HvDMtfWXIkHEygxeZtUSQN+xer8VlyJCxIYN33f//9SvzDRkyZGzFmAmRJFCS8Wc6DPjxNBkyZLRm8ABXOwSJiqhAJeeRIUPGAYwF6w6YzRttQckqQ4aMpow08L2R8NVafrcZrgwZMtox0iEifz1OEHkiyBfIZMiQcQ5j1doEacnxgSh6mgwZMpoyagGRN+t52J0qZWXIkHEAozawrC1G1BbFHv67DBkyWjN4mOOpW+0ovMUWjzBlyJCxOSM9YjrIJKMCHsofqnAZMmQ0ZdRK09qKRi0cxwmoDBky2jF4o39V0z/IWNPUUIYMGa0ZvK3PG/erSmL0iyFDhozjGXx5qzZmSEcOP+7LkCGjNSMdUqbJHz90miCislaGDBmNGGsDbm1VYibplCFDxmmMVcsW/CuoIWXIkHEmo7byVQvBM0sbDwFXhgwZ7RhXePGmPz8cX/8KclsZMmQ0YvDrjRA8s9OVhmkZMmTszkiD7NrvqRZw418PGTJktGDwqnf8/rTFX2PfjjBlyJAhI2zPETAZDKDCVYYMGTJw8lcrSsnX8dDOkyFDxgEMUsTy8rLW4uftPBkyZJzGqK04zIRp8oRVC2cyZMjYnPEHTkNgvkVkkbcAAAAASUVORK5CYII=" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/20/mobius_inverse_note/" class="archive-article-date">
-  	<time datetime="2019-02-20T08:14:36.237Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-20</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/02/20/mobius_inverse_note/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">莫比乌斯反演 &amp; 杜教筛学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/20/mobius_inverse_note/">莫比乌斯反演 &amp; 杜教筛学习笔记</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">莫比乌斯反演</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">杜教筛</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "Ju5O3gfp1VuOiq3H3n2mJRno-gzGzoHsz",
+            app_key: "mcneJFo3HplPlaaRpVKMXPTF",
+            placeholder: "Say something.",
+            avatar:"mm"
+        });
+    }
+</script>
+  </section>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
+
   
 
-    
+  
+
+  
 
 
           </div>
@@ -293,9 +381,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
