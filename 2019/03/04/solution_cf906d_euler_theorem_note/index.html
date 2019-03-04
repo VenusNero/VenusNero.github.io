@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Venus&#39; Blog">
 <meta property="og:description" content="扩展欧拉定理。 在了解这东西之前，我们首先要知道欧拉定理是什么。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-04T10:59:04.062Z">
+<meta property="og:updated_time" content="2019-03-04T11:02:14.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 CF906D Power Tower &#x2F; 欧拉定理 &amp; 扩展欧拉定理学习笔记">
 <meta name="twitter:description" content="扩展欧拉定理。 在了解这东西之前，我们首先要知道欧拉定理是什么。">
@@ -177,7 +177,7 @@
 
 <a id="more"></a>
 <p>欧拉定理：</p>
-<script type="math/tex; mode=display">\text{当}\ \gcd(a,p)=1 \ \text{时，有} a^{\varphi(p)}\equiv1\ (\text{mod}\ p)</script><p>所以可以得：</p>
+<script type="math/tex; mode=display">\text{当}\ \gcd(a,p)=1 \ \text{时，有}\ a^{\varphi(p)}\equiv1\ (\text{mod}\ p)</script><p>所以可以得：</p>
 <script type="math/tex; mode=display">a^b\equiv a^{b\ \text{mod}\ \varphi(p)}\ (\text{mod}\ p)</script><p>但是因为有一个 $\gcd(a,p)=1$ 的限制，所以不能对所有情况适用，此时我们就需要引入扩展欧拉定理了。</p>
 <script type="math/tex; mode=display">\text{当}\ b≥\varphi(p)\ \text{时，有}\ a^b\equiv a^{b\ \text{mod}\ \varphi(p)+\varphi(p)}\ (\text{mod}\ p)</script><p>$b&lt;\varphi(p)$ 时就正常算就行了。</p>
 <p>知道这个之后我们可以怎么做呢？显然，我们可以递归求解一些形如 $a^b \text{mod} p$ 的问题了，对于这题，也可以不递归，递推即可。</p>
