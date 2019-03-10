@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://VenusNero.github.io/"/>
-  <updated>2019-03-05T13:57:08.107Z</updated>
+  <updated>2019-03-10T14:34:16.739Z</updated>
   <id>http://VenusNero.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>题解 SP19985 GCDEX2 - GCD Extreme (hard)</title>
+    <link href="http://VenusNero.github.io/2019/03/10/solution_sp19985/"/>
+    <id>http://VenusNero.github.io/2019/03/10/solution_sp19985/</id>
+    <published>2019-03-10T14:34:16.539Z</published>
+    <updated>2019-03-10T14:34:16.739Z</updated>
+    
+    <content type="html"><![CDATA[<p>杜教筛。</p><p>求：</p><script type="math/tex; mode=display">\sum_{i=1}^{n}\sum_{j=i+1}^{n}gcd(i,j)</script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1350160463&auto=0&height=66"></iframe><a id="more"></a><p>有点神奇的一道题目……</p><p>第一套路，枚举 gcd：</p><script type="math/tex; mode=display">\sum_{d=1}^{n}\sum_{i=1}^{n}\sum_{j=i+1}^{n}d\times[gcd(i,j)=d]</script><p>然后用莫比乌斯反演：</p><script type="math/tex; mode=display">\sum_{d=1}^{n}\sum_{i=1}^{\lfloor{n\over d}\rfloor}\sum_{j=i+1}^{\lfloor{n\over d}\rfloor}\sum_{k|gcd(i,j)}\mu(k)\times d</script><p>数论分块套数论分块？时间复杂度 $\text{O}(n)$ 啊……怎么破……</p><p>隔壁 Sinner：哇<strong>* 你个</strong> 你知不知道什么叫 $\varphi$ 啊？！【批判一番】</p><p>em感觉自己就是个蒟蒻（其实就是个蒟蒻）</p><p>所以我们可以直接把它化成：</p><script type="math/tex; mode=display">\sum_{d=1}^{n}d\times\sum_{i=1}^{\lfloor{n\over d}\rfloor}\varphi(i)</script><p>杜教筛直接上就行了…… $\varphi * I=id$ 好写的 1P ……</p><p>（有些细节要注意，比如计算 $I$ 的前缀和的时候，为了防止溢出之后出错判断奇偶性等）</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 10000000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int unsigned long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,pri[MAXN/<span class="number">10</span>+<span class="number">5</span>],tot,phi[MAXN+<span class="number">5</span>];</span><br><span class="line"><span class="keyword">bool</span> isp[MAXN+<span class="number">5</span>];</span><br><span class="line"><span class="built_in">unordered_map</span> &lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; f;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetPrime</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">phi[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">isp[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=MAXN;i++)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span>(!isp[i])</span><br><span class="line">&#123;</span><br><span class="line">pri[++tot]=i;</span><br><span class="line">phi[i]=i<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=tot &amp;&amp; i*pri[j]&lt;=MAXN;j++)</span><br><span class="line">&#123;</span><br><span class="line">isp[i*pri[j]]=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span>(i%pri[j]) phi[i*pri[j]]=phi[i]*(pri[j]<span class="number">-1</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">phi[i*pri[j]]=phi[i]*pri[j];</span><br><span class="line"><span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=MAXN;i++) phi[i]+=phi[i<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">G</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">return</span> (x&amp;<span class="number">1</span>)?((x+<span class="number">1</span>)/<span class="number">2</span>*x):(x/<span class="number">2</span>*(x+<span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetSum</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(x&lt;=MAXN) <span class="keyword">return</span> phi[x];</span><br><span class="line"><span class="keyword">if</span>(f.count(x)) <span class="keyword">return</span> f[x];</span><br><span class="line"><span class="keyword">int</span> res=G(x),l=<span class="number">2</span>,r;</span><br><span class="line"><span class="keyword">while</span>(l&lt;=x)</span><br><span class="line">&#123;</span><br><span class="line">r=x/(x/l);</span><br><span class="line">res-=(r-l+<span class="number">1</span>)*GetSum(x/l);</span><br><span class="line">l=r+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">f[x]=res;</span><br><span class="line"><span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">GetPrime();</span><br><span class="line"><span class="keyword">int</span> Time;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%llu"</span>,&amp;Time);</span><br><span class="line"><span class="keyword">while</span>(Time--)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">int</span> res=<span class="number">0</span>,l=<span class="number">1</span>,r;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%llu"</span>,&amp;n);</span><br><span class="line"><span class="keyword">while</span>(l&lt;=n)</span><br><span class="line">&#123;</span><br><span class="line">r=n/(n/l);</span><br><span class="line">res+=(GetSum(n/l)<span class="number">-1</span>)*(G(r)-G(l<span class="number">-1</span>));</span><br><span class="line">l=r+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%llu\n"</span>,res);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;杜教筛。&lt;/p&gt;
+&lt;p&gt;求：&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\sum_{i=1}^{n}\sum_{j=i+1}^{n}gcd(i,j)&lt;/script&gt;&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;//music.163.com/outchain/player?type=2&amp;id=1350160463&amp;auto=0&amp;height=66&quot;&gt;&lt;/iframe&gt;
+    
+    </summary>
+    
+    
+      <category term="数论" scheme="http://VenusNero.github.io/tags/%E6%95%B0%E8%AE%BA/"/>
+    
+      <category term="杜教筛" scheme="http://VenusNero.github.io/tags/%E6%9D%9C%E6%95%99%E7%AD%9B/"/>
+    
+      <category term="题解" scheme="http://VenusNero.github.io/tags/%E9%A2%98%E8%A7%A3/"/>
+    
+      <category term="数论分块" scheme="http://VenusNero.github.io/tags/%E6%95%B0%E8%AE%BA%E5%88%86%E5%9D%97/"/>
+    
+  </entry>
   
   <entry>
     <title>题解 P3934 Nephren Ruq Insania</title>
@@ -505,28 +533,6 @@
       
       
         &lt;script type=&quot;math/tex; mode=display&quot;&gt;\max{(S)}=\sum_{T\subseteq S}^{}(-1)^{|T|-1}\min{(T)}&lt;/script&gt;
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello the Cruel World</title>
-    <link href="http://VenusNero.github.io/2019/01/22/hello-world/"/>
-    <id>http://VenusNero.github.io/2019/01/22/hello-world/</id>
-    <published>2019-01-22T11:48:43.687Z</published>
-    <updated>2019-01-22T12:18:12.373Z</updated>
-    
-    <content type="html"><![CDATA[<p>这里是我的新博客，平时随缘更新，望关注【笑</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;这里是我的新博客，平时随缘更新，望关注【笑&lt;/p&gt;
-
       
     
     </summary>
