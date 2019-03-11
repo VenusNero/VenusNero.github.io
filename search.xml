@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>题解 SP2906 GCD2 - GCD2</title>
+      <link href="/2019/03/11/solution_sp2906/"/>
+      <url>/2019/03/11/solution_sp2906/</url>
+      
+        <content type="html"><![CDATA[<p>神奇的做法。</p><p>求 $\gcd(a,b)$，其中 $b$ 为极大值。</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=628591&auto=0&height=66"></iframe><a id="more"></a><p>首先看到 $b\leq10^{250}$，首先想到<del>自己是个250</del>肯定不是普通做法能做的了，此时我们有两种做法，一种就是老老实实写高精加减，然后写更相减损术，如果您能保证高精不出锅的话也不失为一种稳妥的办法，但显然不是这题的最优解，因为题中还有一个条件：$a\leq4\times10^{4}$，既然 $a$ 能直接存下，那么心中应该有点数了，显然是有别的办法可以做的。</p><p>考虑辗转相除法的流程，即：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> !y?x:Gcd(y,x%y);</span><br></pre></td></tr></table></figure><p>其中 $x$ 初始为 $a$，$y$ 初始为 $b$，那么很显然，在递归了很多遍之后，如果 $b$ 远大于 $a$，那么 $b$ 必然会被 $a$ $\%$ 很多次，而 $a$ 则不会有变化，我们可以利用这个思想，在预处理时可以提前将 $b$ 对 $a$ 取模，然后最后做一遍辗转相除就可以求得答案了。</p><p>什么？你问 $b&lt;a$ 怎么办？那显然预处理时 $b$ 不会变化，对结果也不会有影响。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 255</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">char</span> ch[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Gcd</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">return</span> !y?x:Gcd(y,x%y);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="keyword">int</span> Time;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;Time);</span><br><span class="line"><span class="keyword">while</span>(Time--)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">int</span> x,len;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d %s"</span>,&amp;x,ch+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">if</span>(!x)</span><br><span class="line">&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%s\n"</span>,ch+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">continue</span>;</span><br><span class="line">&#125;</span><br><span class="line">len=<span class="built_in">strlen</span>(ch+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">int</span> res=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=len;i++) res=((res&lt;&lt;<span class="number">3</span>)+(res&lt;&lt;<span class="number">1</span>)+(ch[i]<span class="number">-48</span>))%x;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Gcd(res,x));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 题解 </tag>
+            
+            <tag> 乱搞 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>题解 SP19985 GCDEX2 - GCD Extreme (hard)</title>
       <link href="/2019/03/10/solution_sp19985/"/>
       <url>/2019/03/10/solution_sp19985/</url>
