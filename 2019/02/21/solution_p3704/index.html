@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
   <title>题解 P3704 [SDOI2017]数字表格 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="莫比乌斯反演。 （什么毒瘤题啊这是……）">
+  <meta name="description" content="莫比乌斯反演。 求： \prod_{i=1}^{n}\prod_{j=1}^{n}f_{gcd(i,j)}（其中 $f_i$ 为斐波那契数列的第 $i$ 项） （什么毒瘤题啊这是……）">
 <meta name="keywords" content="数论,莫比乌斯反演,题解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 P3704 [SDOI2017]数字表格">
 <meta property="og:url" content="http://VenusNero.github.io/2019/02/21/solution_p3704/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
-<meta property="og:description" content="莫比乌斯反演。 （什么毒瘤题啊这是……）">
+<meta property="og:description" content="莫比乌斯反演。 求： \prod_{i=1}^{n}\prod_{j=1}^{n}f_{gcd(i,j)}（其中 $f_i$ 为斐波那契数列的第 $i$ 项） （什么毒瘤题啊这是……）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-21T02:35:40.446Z">
+<meta property="og:updated_time" content="2019-03-11T12:48:57.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 P3704 [SDOI2017]数字表格">
-<meta name="twitter:description" content="莫比乌斯反演。 （什么毒瘤题啊这是……）">
+<meta name="twitter:description" content="莫比乌斯反演。 求： \prod_{i=1}^{n}\prod_{j=1}^{n}f_{gcd(i,j)}（其中 $f_i$ 为斐波那契数列的第 $i$ 项） （什么毒瘤题啊这是……）">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -172,12 +172,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>莫比乌斯反演。</p>
+<p>求：</p>
+<script type="math/tex; mode=display">\prod_{i=1}^{n}\prod_{j=1}^{n}f_{gcd(i,j)}</script><p>（其中 $f_i$ 为斐波那契数列的第 $i$ 项）</p>
 <p>（什么毒瘤题啊这是……）</p>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1345820742&auto=0&height=66"></iframe>
 
 <a id="more"></a>
-<p>要求：</p>
-<script type="math/tex; mode=display">\prod_{i=1}^{n}\prod_{j=1}^{n}f_{gcd(i,j)}</script><p>（其中 $f_i$ 为斐波那契数列的第 $i$ 项）</p>
 <p>出现了 $gcd$，那么就用一个惯用技巧：枚举之，所以式子变成：</p>
 <script type="math/tex; mode=display">\prod_{d=1}^{n}\prod_{i=1}^{n}\prod_{j=1}^{m}f_d\times[gcd(i,j)=d]</script><p>因为有许多重复的 $f_d$ 被记录到答案里，我们不妨将它化成 $f_d^x$ 的形式，如下：</p>
 <script type="math/tex; mode=display">\prod_{d=1}^{n}f_d ^{\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j)=d]}</script><p>上面这坨好像有点眼熟？单独拎出来看看：</p>
