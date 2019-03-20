@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
   <title>多项式算法学习笔记 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这里是一个菜鸡的多项式学习笔记…… 只会背板子不会原理哇qaq 目前更新至：多项式快速幂 Todolist：多项式开根">
+  <meta name="description" content="这里是一个菜鸡的多项式学习笔记…… 只会背板子不会原理哇qaq 目前更新至：多项式开根 Todolist：多项式除法">
 <meta name="keywords" content="数论,多项式算法,NTT,FFT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多项式算法学习笔记">
 <meta property="og:url" content="http://VenusNero.github.io/2019/03/19/poly_algorithm_note/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
-<meta property="og:description" content="这里是一个菜鸡的多项式学习笔记…… 只会背板子不会原理哇qaq 目前更新至：多项式快速幂 Todolist：多项式开根">
+<meta property="og:description" content="这里是一个菜鸡的多项式学习笔记…… 只会背板子不会原理哇qaq 目前更新至：多项式开根 Todolist：多项式除法">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-20T13:13:20.793Z">
+<meta property="og:updated_time" content="2019-03-20T13:24:18.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多项式算法学习笔记">
-<meta name="twitter:description" content="这里是一个菜鸡的多项式学习笔记…… 只会背板子不会原理哇qaq 目前更新至：多项式快速幂 Todolist：多项式开根">
+<meta name="twitter:description" content="这里是一个菜鸡的多项式学习笔记…… 只会背板子不会原理哇qaq 目前更新至：多项式开根 Todolist：多项式除法">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -173,8 +173,8 @@
       
         <p>这里是一个菜鸡的多项式学习笔记……</p>
 <p>只会背板子不会原理哇qaq</p>
-<p>目前更新至：多项式快速幂</p>
-<p>Todolist：多项式开根</p>
+<p>目前更新至：多项式开根</p>
+<p>Todolist：多项式除法</p>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=31108205&auto=0&height=66"></iframe>
 
 <a id="more"></a>
@@ -226,6 +226,11 @@
 <script type="math/tex; mode=display">\ln G(x)=k\ln F(x)</script><p>所以我们把 $F(x)$ 求 $\ln$，把系数乘上 $k$，然后做一遍 $\exp$ 就得到了 $G(x)$。</p>
 <p><del>（简不简单吖~）</del></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lld %s"</span>,&amp;n,s+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> l=<span class="built_in">strlen</span>(s+<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=l;i++) k=((k&lt;&lt;<span class="number">3</span>)+(k&lt;&lt;<span class="number">1</span>)+(s[i]<span class="number">-48</span>))%Mod;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;F[i]);</span><br><span class="line">    GetLn(F,G,n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) G[i]=G[i]*k%Mod;</span><br><span class="line">    <span class="built_in">memset</span>(b,<span class="number">0</span>,<span class="keyword">sizeof</span>(b));</span><br><span class="line">    GetExp(G,T,n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="built_in">printf</span>(<span class="string">"%lld "</span>,T[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="6-多项式开根"><a href="#6-多项式开根" class="headerlink" title="6 多项式开根"></a>6 多项式开根</h1><p>又是一道简单题……</p>
+<p>要求 $G(x)$ 使得 $G(x)^2=F(x)$，想一想多项式快速幂的结论，想一想对数的性质：$log_ab^k=klog_ab$，于是可以将它化成：</p>
+<script type="math/tex; mode=display">2\ln G(x)=\ln F(x)</script><p>和多项式快速幂一样的处理方法，求出 $\ln$ 后将系数除 $2$（乘 $2$ 的逆元），然后一遍 $\exp$ 带走。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;F[i]);</span><br><span class="line">    GetLn(F,G,n);</span><br><span class="line">    <span class="keyword">int</span> inv=QuickPow(<span class="number">2</span>,Mod<span class="number">-2</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) G[i]=G[i]*inv%Mod;</span><br><span class="line">    <span class="built_in">memset</span>(b,<span class="number">0</span>,<span class="keyword">sizeof</span>(b));</span><br><span class="line">    GetExp(G,T,n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="built_in">printf</span>(<span class="string">"%lld "</span>,T[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
 
