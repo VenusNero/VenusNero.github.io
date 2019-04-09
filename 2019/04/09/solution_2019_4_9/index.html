@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
-  <title>Venus&#39; Blog</title>
+  <title>题解 模拟赛 4-9 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="有点菜，$100+100+80=280$，第三题因为太麻瓜了没 AC，不然就 AK 了。 隔壁的 Sinner AK 了，Orz。    T1$n$ 只有 $7$，每个根也不过 $[1,20]$，范围非常小。那么现在最大的问题就是判重根。 考虑一个数 $x$ 是方程 $f(x)=0$ 的条件是对于 $f$ 的 $0$ ~ $k-1$ 阶导数都有 $f’(x)=0$，所以我们可以直接枚举它的所有导数">
+  <meta name="description" content="有点菜，$100+100+80=280$，第三题因为太麻瓜了没 AC，不然就 AK 了。 隔壁的 Sinner AK 了，Orz。">
 <meta name="keywords" content="数论,题解,爆搜,模拟赛,二分图匹配">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Venus&#39; Blog">
+<meta property="og:title" content="题解 模拟赛 4-9">
 <meta property="og:url" content="http://VenusNero.github.io/2019/04/09/solution_2019_4_9/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
-<meta property="og:description" content="有点菜，$100+100+80=280$，第三题因为太麻瓜了没 AC，不然就 AK 了。 隔壁的 Sinner AK 了，Orz。    T1$n$ 只有 $7$，每个根也不过 $[1,20]$，范围非常小。那么现在最大的问题就是判重根。 考虑一个数 $x$ 是方程 $f(x)=0$ 的条件是对于 $f$ 的 $0$ ~ $k-1$ 阶导数都有 $f’(x)=0$，所以我们可以直接枚举它的所有导数">
+<meta property="og:description" content="有点菜，$100+100+80=280$，第三题因为太麻瓜了没 AC，不然就 AK 了。 隔壁的 Sinner AK 了，Orz。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-09T10:25:16.230Z">
+<meta property="og:updated_time" content="2019-04-09T10:40:17.904Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Venus&#39; Blog">
-<meta name="twitter:description" content="有点菜，$100+100+80=280$，第三题因为太麻瓜了没 AC，不然就 AK 了。 隔壁的 Sinner AK 了，Orz。    T1$n$ 只有 $7$，每个根也不过 $[1,20]$，范围非常小。那么现在最大的问题就是判重根。 考虑一个数 $x$ 是方程 $f(x)=0$ 的条件是对于 $f$ 的 $0$ ~ $k-1$ 阶导数都有 $f’(x)=0$，所以我们可以直接枚举它的所有导数">
+<meta name="twitter:title" content="题解 模拟赛 4-9">
+<meta name="twitter:description" content="有点菜，$100+100+80=280$，第三题因为太麻瓜了没 AC，不然就 AK 了。 隔壁的 Sinner AK 了，Orz。">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -154,12 +154,28 @@
             <article id="post-solution_2019_4_9" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      题解 模拟赛 4-9
+    </h1>
+  
+
+        
+        <a href="/2019/04/09/solution_2019_4_9/" class="archive-article-date">
+  	<time datetime="2019-04-09T10:25:16.038Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-09</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <p>有点菜，$100+100+80=280$，第三题因为太麻瓜了没 AC，不然就 AK 了。</p>
 <p>隔壁的 Sinner AK 了，Orz。</p>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=101106&auto=0&height=66"></iframe>
 
+<a id="more"></a>
 <hr>
 <h1 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h1><p>$n$ 只有 $7$，每个根也不过 $[1,20]$，范围非常小。那么现在最大的问题就是判重根。</p>
 <p>考虑一个数 $x$ 是方程 $f(x)=0$ 的条件是对于 $f$ 的 $0$ ~ $k-1$ 阶导数都有 $f’(x)=0$，所以我们可以直接枚举它的所有导数进行计算。</p>
