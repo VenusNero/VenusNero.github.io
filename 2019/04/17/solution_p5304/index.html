@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
-  <title>About Me | Venus&#39; Blog</title>
+  <title>题解 P5304 [GXOI/GZOI2019]旅行者 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我是谁？ZJ 最菜的菜鸡，被各种吊打。 「愿你唱遍梨园繁华，回首依然笑靥如花」">
+  <meta name="description" content="Dijkstra。 这道题目简直是弟弟级别的……">
+<meta name="keywords" content="题解,最短路">
 <meta property="og:type" content="article">
-<meta property="og:title" content="About Me">
-<meta property="og:url" content="http://VenusNero.github.io/2019/04/16/about_me/index.html">
+<meta property="og:title" content="题解 P5304 [GXOI&#x2F;GZOI2019]旅行者">
+<meta property="og:url" content="http://VenusNero.github.io/2019/04/17/solution_p5304/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
-<meta property="og:description" content="我是谁？ZJ 最菜的菜鸡，被各种吊打。 「愿你唱遍梨园繁华，回首依然笑靥如花」">
+<meta property="og:description" content="Dijkstra。 这道题目简直是弟弟级别的……">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-16T11:53:06.022Z">
+<meta property="og:updated_time" content="2019-04-17T13:28:23.437Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="About Me">
-<meta name="twitter:description" content="我是谁？ZJ 最菜的菜鸡，被各种吊打。 「愿你唱遍梨园繁华，回首依然笑靥如花」">
+<meta name="twitter:title" content="题解 P5304 [GXOI&#x2F;GZOI2019]旅行者">
+<meta name="twitter:description" content="Dijkstra。 这道题目简直是弟弟级别的……">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -150,31 +151,35 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-about_me" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-solution_p5304" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      About Me
+      题解 P5304 [GXOI/GZOI2019]旅行者
     </h1>
   
 
         
-        <a href="/2019/04/16/about_me/" class="archive-article-date">
-  	<time datetime="2019-04-16T11:30:03.081Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-16</time>
+        <a href="/2019/04/17/solution_p5304/" class="archive-article-date">
+  	<time datetime="2019-04-17T13:28:23.297Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="我是谁？"><a href="#我是谁？" class="headerlink" title="我是谁？"></a>我是谁？</h2><p>ZJ 最菜的菜鸡，被各种吊打。</p>
-<h3 id="「愿你唱遍梨园繁华，回首依然笑靥如花」"><a href="#「愿你唱遍梨园繁华，回首依然笑靥如花」" class="headerlink" title="「愿你唱遍梨园繁华，回首依然笑靥如花」"></a>「愿你唱遍梨园繁华，回首依然笑靥如花」</h3><iframe src="//player.bilibili.com/player.html?aid=36570707&cid=74641034&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="min-height:450px;min-width:600px;"> </iframe>
+        <p>Dijkstra。</p>
+<p>这道题目简直是弟弟级别的……</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=410042097&auto=0&height=66"></iframe>
 
 <a id="more"></a>
-<h2 id="个人信息（伪）"><a href="#个人信息（伪）" class="headerlink" title="个人信息（伪）"></a>个人信息（伪）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">各种地方的 ID：Venus / VenusNero / DKACVenus</span><br><span class="line">（其中 DKACVenus 非常少用）</span><br><span class="line">QQ：2314701302（工作日用）/ 953854419（假期用）</span><br><span class="line">爱好：写代码 / FGO</span><br><span class="line">码风：大括号换行</span><br></pre></td></tr></table></figure>
+<p>考虑每条边 $(u,v,w)$ 的贡献，我们可以处理出城市中离 $u$ 最近的距离为 $dis_1$，离 $v$ 最近的距离为 $dis_2$，那么这条边的权值就是 $dis_1+dis_2+w$，然后找到最短的一条就行了。</p>
+<p>同时，我们还要记录这个城市的编号，如果两个城市相同，那么相当于走了一个环回到其本身了，不能计入答案。</p>
+<p>正反跑两边 Dijkstra，分别染色。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 100005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXM 500005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> reg register</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> inl inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> cnt,fst[MAXN],to[MAXM],nxt[MAXM],w[MAXM];</span><br><span class="line"><span class="keyword">int</span> n,m,k,col[<span class="number">2</span>][MAXN],a[MAXN],fr[MAXM],tx[MAXM],ww[MAXM];</span><br><span class="line">ll dis[<span class="number">2</span>][MAXM];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> u;</span><br><span class="line">	ll dis;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Node &amp;x) <span class="keyword">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> x.dis&lt;dis;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">priority_queue &lt;Node&gt; q;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function">inl <span class="keyword">void</span> <span class="title">Read</span><span class="params">(reg T &amp;x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	x=<span class="number">0</span>;</span><br><span class="line">	reg <span class="keyword">int</span> fu=<span class="number">1</span>;</span><br><span class="line">	reg <span class="keyword">char</span> ch=getchar();</span><br><span class="line">	<span class="keyword">for</span>(;!<span class="built_in">isdigit</span>(ch);ch=getchar()) <span class="keyword">if</span>(ch==<span class="string">'-'</span>) fu=<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span>(;<span class="built_in">isdigit</span>(ch);ch=getchar()) x=(x&lt;&lt;<span class="number">3</span>)+(x&lt;&lt;<span class="number">1</span>)+(ch<span class="number">-48</span>);</span><br><span class="line">	x*=fu;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">void</span> <span class="title">AddEdge</span><span class="params">(reg <span class="keyword">int</span> u,reg <span class="keyword">int</span> v,reg <span class="keyword">int</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	to[++cnt]=v;</span><br><span class="line">	nxt[cnt]=fst[u];</span><br><span class="line">	fst[u]=cnt;</span><br><span class="line">	w[cnt]=c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(reg <span class="keyword">int</span> id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(dis[id],<span class="number">60</span>,<span class="keyword">sizeof</span>(dis[id]));</span><br><span class="line">	<span class="built_in">memset</span>(col[id],<span class="number">0</span>,<span class="keyword">sizeof</span>(col[id]));</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		dis[id][a[i]]=<span class="number">0</span>;</span><br><span class="line">		col[id][a[i]]=a[i];</span><br><span class="line">		q.push((Node)&#123;a[i],<span class="number">0</span>&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span>(!q.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		reg Node now=q.top();</span><br><span class="line">		q.pop();</span><br><span class="line">		reg <span class="keyword">int</span> u=now.u;</span><br><span class="line">		reg ll d=now.dis;</span><br><span class="line">		<span class="keyword">if</span>(d!=dis[id][u]) <span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">for</span>(reg <span class="keyword">int</span> i=fst[u];i;i=nxt[i])</span><br><span class="line">		&#123;</span><br><span class="line">			reg <span class="keyword">int</span> v=to[i];</span><br><span class="line">			<span class="keyword">if</span>(dis[id][v]&gt;dis[id][u]+w[i])</span><br><span class="line">			&#123;</span><br><span class="line">				dis[id][v]=dis[id][u]+w[i];</span><br><span class="line">				col[id][v]=col[id][u];</span><br><span class="line">				q.push((Node)&#123;v,dis[id][v]&#125;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> Time;</span><br><span class="line">	Read(Time);</span><br><span class="line">	<span class="keyword">while</span>(Time--)</span><br><span class="line">	&#123;</span><br><span class="line">		cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="built_in">memset</span>(fst,<span class="number">0</span>,<span class="keyword">sizeof</span>(fst));</span><br><span class="line">		Read(n);</span><br><span class="line">		Read(m);</span><br><span class="line">		Read(k);</span><br><span class="line">		<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> x,y,z;</span><br><span class="line">			Read(x);</span><br><span class="line">			Read(y);</span><br><span class="line">			Read(z);</span><br><span class="line">			fr[i]=x;</span><br><span class="line">			tx[i]=y;</span><br><span class="line">			ww[i]=z;</span><br><span class="line">			<span class="keyword">if</span>(x^y) AddEdge(x,y,z);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=k;i++) Read(a[i]);</span><br><span class="line">		Dijkstra(<span class="number">0</span>);</span><br><span class="line">		cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="built_in">memset</span>(fst,<span class="number">0</span>,<span class="keyword">sizeof</span>(fst));</span><br><span class="line">		<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++) <span class="keyword">if</span>(fr[i]^tx[i]) AddEdge(tx[i],fr[i],ww[i]);</span><br><span class="line">		Dijkstra(<span class="number">1</span>);</span><br><span class="line">		reg ll ans=<span class="number">1e18</span>;</span><br><span class="line">		<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			reg <span class="keyword">int</span> u=fr[i],v=tx[i],c=ww[i];</span><br><span class="line">			<span class="keyword">if</span>(col[<span class="number">0</span>][u] &amp;&amp; col[<span class="number">1</span>][v] &amp;&amp; col[<span class="number">0</span>][u]!=col[<span class="number">1</span>][v]) ans=min(ans,dis[<span class="number">0</span>][u]+dis[<span class="number">1</span>][v]+c);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,ans);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -187,6 +192,21 @@
         </div>
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">最短路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -237,7 +257,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKElEQVR42u3aQW6EMAwF0N7/0nTTRaUpjL9NRyJ5rEaUhrwsjO3k66t8HS9Xev/3X1+fObtz84WBgfFYxnF5Xb8g/a/rcc5+VxYFAwNjB8ZZBJsMHUzikn09NwwMDIz0mTRMz9+LgYGBURm6HkYrSSEGBgbGpIitDJ2O1mvbYWBg7Maod90///tf9jcwMDAexTjCa96eu3c+P2NiYGAszagHuElzP4Wl88HAwFibkRaW6VTqSV6lfI3zVgwMjEUZ8+Z+ZfzesYzT2WJgYGzD6LXpe9PtheBSaoiBgbEoo/7K+tbjZHsy3SjFwMDYh5EWt5WDXJXSd1Iqxx0+DAyMBzLqmDRpSztj16G89AHAwMBYmtFrrlXC4l0Bt3mAAwMDYwnGXaE2baKlKeabxcXAwFiakQbc3sZAfVHmy4SBgbEeo5fkpa9JU73mYQsMDIxtGKNUrNxWqy/TaEsAAwNjIca9JWV90j3AH/cxMDCWZtxVD6aF8aSIbZ4iwcDAeDijnorNj3/1ni/NFgMDYwNGvSnWC6OTcDz6VmBgYCzESBv9n9nmDIpYDAyMRRlHeKWxrr4c6SbBaVKIgYGxHCPdkpwc4ZqXqXHvEAMDYyFG70hWb4p3Bdz464GBgbEEI2jBh1ublRRzshWKgYGBMS9T085YJbxiYGBg9I5W9I5o1IP4mycxMDA2YNQ3JuuYeXl8vRwYGBj7MCYnNdJkrnfAIkgQMTAwVmN8A/sbQc89jpVmAAAAAElFTkSuQmCC" alt="微信分享二维码">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3aSW7DMAwF0Nz/0um6aK18knYAy0+rwPH0EIARh9crXu8/6+jb9ZHqVScvDAyM2zLey7V+QHJV78z83TAwMJ7DOIpg68/r+xReIg7Th8cxMDAwDl6xt9VLMBgYGBhzxjwQrzeCGBgYGL0kNg+vyUrKeZfk4hgYGDdk5FX373++pL+BgYFxK8YkRCaBMml/VpsB/9wNAwNja0Ye4CZjFkkLM0mqP7wPBgbGpozJkMT6Yfk5eUpcnlnDwMDYgpGX0ibDE0nArZb8ov8NDAyMjRjzIJgHyuRI3l7FwMB4AiMfg6g2CZIN6Fn7OgwMjKcx5iE4L70l/waFXBwDA2NrRq+sX3hMKw1eb0B/HcHAwNiaMRluqI5iTEJ2oWqIgYGxHSMPo71GZjUBTsJr9DtgYGBsx8jDbi/UzlPWQi6OgYGxHSMv9FfT2t79q9d+CLsYGBhbMPLweu74RbVheUINDwMD47aM6mMmW8xec7TQdsXAwNiaMW809gptvbBbKPNhYGBsxMjT0Xmhf3L+h9QaAwPjAYzJZnHybW8IAwMD45mM3uhDsrmstkh7IR4DA2NXxru4quludXNZbTYUXgIDA+O2jHzlITgfArtiOAMDA2NXxhUjF72tXrX8h4GB8TRGteg/SV/Xx6uhHwMDA2MdcHujGFcU+DAwMDDyPLiXlPYS3RO2hhgYGLdiJElsr+g/GdpYn4mBgfEcRm/E4awNZSFNnTcyMTAw7sf4AXPEf62yIWZcAAAAAElFTkSuQmCC" alt="微信分享二维码">
     </div>
 </div>
 
@@ -251,18 +271,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/04/17/solution_p5304/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/04/17/solution_p5305/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          题解 P5304 [GXOI/GZOI2019]旅行者
+          题解 P5305 [GXOI/GZOI2019]旧词
         
       </div>
     </a>
   
   
-    <a href="/2019/04/15/solution_p4151/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">题解 P4151 [WC2011]最大XOR和路径</div>
+    <a href="/2019/04/16/about_me/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">About Me</div>
       <i class="icon-circle-right"></i>
     </a>
   
