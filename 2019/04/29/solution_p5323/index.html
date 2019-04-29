@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
   <title>题解 P5323 [BJOI2019] 光线 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="递推。 每片玻璃有反射和透过两种情况，每束光有从上方来和从下方来两种可能，看似情况非常多，但是我们可以分析一下，事实上最终一共只有两种情况：即光向上或向下，我们不妨令 $f[i]$ 表示第 $i$ 片玻璃向下的光，$g[i]$ 表示向上的光，那么可以得到两个显然的式子，即： f[i]=f[i-1]\times a[i]+g[i+1]\times b[i]g[i]=f[i-1]\times b[n]">
+  <meta name="description" content="递推。 $n$ 片玻璃，每片玻璃的透光率为 $a_i\%$，反射率为 $b_i\%$，求 $1$ 单位的光照入后，能有多少光经过这 $n$ 片玻璃。">
 <meta name="keywords" content="题解,递推">
 <meta property="og:type" content="article">
 <meta property="og:title" content="题解 P5323 [BJOI2019] 光线">
 <meta property="og:url" content="http://VenusNero.github.io/2019/04/29/solution_p5323/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
-<meta property="og:description" content="递推。 每片玻璃有反射和透过两种情况，每束光有从上方来和从下方来两种可能，看似情况非常多，但是我们可以分析一下，事实上最终一共只有两种情况：即光向上或向下，我们不妨令 $f[i]$ 表示第 $i$ 片玻璃向下的光，$g[i]$ 表示向上的光，那么可以得到两个显然的式子，即： f[i]=f[i-1]\times a[i]+g[i+1]\times b[i]g[i]=f[i-1]\times b[n]">
+<meta property="og:description" content="递推。 $n$ 片玻璃，每片玻璃的透光率为 $a_i\%$，反射率为 $b_i\%$，求 $1$ 单位的光照入后，能有多少光经过这 $n$ 片玻璃。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-29T11:51:23.187Z">
+<meta property="og:updated_time" content="2019-04-29T11:56:03.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="题解 P5323 [BJOI2019] 光线">
-<meta name="twitter:description" content="递推。 每片玻璃有反射和透过两种情况，每束光有从上方来和从下方来两种可能，看似情况非常多，但是我们可以分析一下，事实上最终一共只有两种情况：即光向上或向下，我们不妨令 $f[i]$ 表示第 $i$ 片玻璃向下的光，$g[i]$ 表示向上的光，那么可以得到两个显然的式子，即： f[i]=f[i-1]\times a[i]+g[i+1]\times b[i]g[i]=f[i-1]\times b[n]">
+<meta name="twitter:description" content="递推。 $n$ 片玻璃，每片玻璃的透光率为 $a_i\%$，反射率为 $b_i\%$，求 $1$ 单位的光照入后，能有多少光经过这 $n$ 片玻璃。">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -172,6 +172,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>递推。</p>
+<p>$n$ 片玻璃，每片玻璃的透光率为 $a_i\%$，反射率为 $b_i\%$，求 $1$ 单位的光照入后，能有多少光经过这 $n$ 片玻璃。</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=60525&auto=0&height=66"></iframe>
+
+<a id="more"></a>
 <p>每片玻璃有反射和透过两种情况，每束光有从上方来和从下方来两种可能，看似情况非常多，但是我们可以分析一下，事实上最终一共只有两种情况：即光向上或向下，我们不妨令 $f[i]$ 表示第 $i$ 片玻璃向下的光，$g[i]$ 表示向上的光，那么可以得到两个显然的式子，即：</p>
 <script type="math/tex; mode=display">f[i]=f[i-1]\times a[i]+g[i+1]\times b[i]</script><script type="math/tex; mode=display">g[i]=f[i-1]\times b[n]+g[i+1]\times a[i]</script><p>显然这个东西是不能直接递推求的，因为求第 $i$ 项要第 $i-1$ 和第 $i+1$ 项，我们考虑换一种思路，令 $f[i]$ 表示光从第 $1$ 到第 $i$ 片玻璃的透光率，$g[i]$ 表示光从第 $i$ 到第 $1$ 片玻璃的反光率，枚举光的反射次数为 $j$，可以得到：</p>
 <script type="math/tex; mode=display">f[i]=f[i-1]\times a[i]\times \sum_{j=0}^{\infty}(g[i-1]\times b[i])^{j}</script><script type="math/tex; mode=display">g[i]=b[i]+g[i-1]\times a[i]^2\times \sum_{j=0}^{\infty}(g[i-1]\times b[i])^{j}</script><p>可以看出这是一个无限项的等比数列，而无限项等比数列 $a_n=a_{n-1}\times p$ 求和公式为（经百度）$\sum=\frac{a_{1}}{1-p}$，显然上面两个式子的公比 $p=g[i-1]\times b[i]$，所以我们可以得出：</p>
