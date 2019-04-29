@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
-  <title>Tag: 题解 | Venus&#39; Blog</title>
+  <title>题解 P5323 [BJOI2019] 光线 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Venus&#39; Blog">
-<meta property="og:url" content="http://VenusNero.github.io/tags/题解/page/2/index.html">
+  <meta name="description" content="递推。 每片玻璃有反射和透过两种情况，每束光有从上方来和从下方来两种可能，看似情况非常多，但是我们可以分析一下，事实上最终一共只有两种情况：即光向上或向下，我们不妨令 $f[i]$ 表示第 $i$ 片玻璃向下的光，$g[i]$ 表示向上的光，那么可以得到两个显然的式子，即： f[i]=f[i-1]\times a[i]+g[i+1]\times b[i]g[i]=f[i-1]\times b[n]">
+<meta name="keywords" content="题解,递推">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 P5323 [BJOI2019] 光线">
+<meta property="og:url" content="http://VenusNero.github.io/2019/04/29/solution_p5323/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
+<meta property="og:description" content="递推。 每片玻璃有反射和透过两种情况，每束光有从上方来和从下方来两种可能，看似情况非常多，但是我们可以分析一下，事实上最终一共只有两种情况：即光向上或向下，我们不妨令 $f[i]$ 表示第 $i$ 片玻璃向下的光，$g[i]$ 表示向上的光，那么可以得到两个显然的式子，即： f[i]=f[i-1]\times a[i]+g[i+1]\times b[i]g[i]=f[i-1]\times b[n]">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-29T11:51:23.187Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Venus&#39; Blog">
+<meta name="twitter:title" content="题解 P5323 [BJOI2019] 光线">
+<meta name="twitter:description" content="递推。 每片玻璃有反射和透过两种情况，每束光有从上方来和从下方来两种可能，看似情况非常多，但是我们可以分析一下，事实上最终一共只有两种情况：即光向上或向下，我们不妨令 $f[i]$ 表示第 $i$ 片玻璃向下的光，$g[i]$ 表示向上的光，那么可以得到两个显然的式子，即： f[i]=f[i-1]\times a[i]+g[i+1]\times b[i]g[i]=f[i-1]\times b[n]">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -146,178 +151,39 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-solution_p5323" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      题解 P5323 [BJOI2019] 光线
+    </h1>
+  
+
+        
+        <a href="/2019/04/29/solution_p5323/" class="archive-article-date">
+  	<time datetime="2019-04-29T11:51:23.102Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-29</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>递推。</p>
+<p>每片玻璃有反射和透过两种情况，每束光有从上方来和从下方来两种可能，看似情况非常多，但是我们可以分析一下，事实上最终一共只有两种情况：即光向上或向下，我们不妨令 $f[i]$ 表示第 $i$ 片玻璃向下的光，$g[i]$ 表示向上的光，那么可以得到两个显然的式子，即：</p>
+<script type="math/tex; mode=display">f[i]=f[i-1]\times a[i]+g[i+1]\times b[i]</script><script type="math/tex; mode=display">g[i]=f[i-1]\times b[n]+g[i+1]\times a[i]</script><p>显然这个东西是不能直接递推求的，因为求第 $i$ 项要第 $i-1$ 和第 $i+1$ 项，我们考虑换一种思路，令 $f[i]$ 表示光从第 $1$ 到第 $i$ 片玻璃的透光率，$g[i]$ 表示光从第 $i$ 到第 $1$ 片玻璃的反光率，枚举光的反射次数为 $j$，可以得到：</p>
+<script type="math/tex; mode=display">f[i]=f[i-1]\times a[i]\times \sum_{j=0}^{\infty}(g[i-1]\times b[i])^{j}</script><script type="math/tex; mode=display">g[i]=b[i]+g[i-1]\times a[i]^2\times \sum_{j=0}^{\infty}(g[i-1]\times b[i])^{j}</script><p>可以看出这是一个无限项的等比数列，而无限项等比数列 $a_n=a_{n-1}\times p$ 求和公式为（经百度）$\sum=\frac{a_{1}}{1-p}$，显然上面两个式子的公比 $p=g[i-1]\times b[i]$，所以我们可以得出：</p>
+<script type="math/tex; mode=display">f[i]=\frac{f[i-1]\times a[i]}{1-p}</script><script type="math/tex; mode=display">g[i]=b[i]+\frac{g[i-1]\times a[i]^{2}}{1-p}</script><p>直接递推求解即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 500005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> reg register</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> inl inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Mod=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">int</span> n,a[MAXN],b[MAXN],f[MAXN],g[MAXN];</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Add</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x+y&gt;Mod?x+y-Mod:x+y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Dec</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x-y&lt;<span class="number">0</span>?x-y+Mod:x-y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Mul</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x*y-x*y/Mod*Mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	reg <span class="keyword">int</span> res=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(;y;y&gt;&gt;=<span class="number">1</span>,x=Mul(x,x)) <span class="keyword">if</span>(y&amp;<span class="number">1</span>) res=Mul(res,x);</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	reg <span class="keyword">int</span> inv=Pow(<span class="number">100</span>,Mod<span class="number">-2</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld %lld"</span>,&amp;a[i],&amp;b[i]);</span><br><span class="line">		a[i]=Mul(inv,a[i]);</span><br><span class="line">		b[i]=Mul(inv,b[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	f[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		reg <span class="keyword">int</span> p=Pow(Dec(<span class="number">1</span>,Mul(g[i<span class="number">-1</span>],b[i])),Mod<span class="number">-2</span>);</span><br><span class="line">		f[i]=Mul(Mul(f[i<span class="number">-1</span>],a[i]),p);</span><br><span class="line">		g[i]=Add(b[i],Mul(Mul(Mul(g[i<span class="number">-1</span>],a[i]),a[i]),p));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,f[n]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/04/solution_cf906d_euler_theorem_note/" class="archive-article-date">
-  	<time datetime="2019-03-04T10:56:49.306Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/04/solution_cf906d_euler_theorem_note/">题解 CF906D Power Tower / 欧拉定理 &amp; 扩展欧拉定理学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">欧拉定理</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">扩展欧拉定理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/21/solution_sp5971/" class="archive-article-date">
-  	<time datetime="2019-02-21T03:45:04.067Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/21/solution_sp5971/">题解 SP5971 LCMSUM - LCM Sum</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">欧拉函数</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/21/solution_p3704/" class="archive-article-date">
-  	<time datetime="2019-02-21T02:35:40.311Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/21/solution_p3704/">题解 P3704 [SDOI2017]数字表格</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">莫比乌斯反演</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/12/solution_2019_2_12/" class="archive-article-date">
-  	<time datetime="2019-02-12T03:52:16.154Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/12/solution_2019_2_12/">题解 模拟赛 2-12</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -327,356 +193,137 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">比赛</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Dfs</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">矩阵快速幂</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">最小生成树</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Trie</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">递推</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aSW6EQAwF0L7/pck2i9B82xCJqscqohnqEckqD59PfBy/juTXszPVu24+MDAwXss4vh7fX5Dc1bsyXxsGBsY+jLMI9j1cJmeiRcRh+vQ8BgYGRrBd64Xp3nsxMDAwqo/Ll5VvBDEwMDB6SWweXiebwsdzcQwMjBcy8qr7///9SH8DAwPjVYyjeFQDZbWd2VwVBgbG0oxJKS1ZRN7sTJLqi/VgYGAsyugNSSQvS1LNJChHKSsGBsYGjF4qOwnEvbLaKRsDA2MzRt5uzJebPz+PpRgYGPswJgX6eUmuF8qjchsGBsZCjN7gV/KCZClJGC0nsRgYGIsyei3Gwmtu/Sh/rAoDA2NpRrItK6SR8TXVMlz0+TAwMBZlJGX6XuJa3Yzm4fX0/4CBgbE0ozfucFeJbZL0YmBg7MCotgyfqHFVN5HRxhQDA2MhxmQw66409YZQi4GBsRkjD69JKMwHLJJPdnoeAwNjaUbyiOo4Vy9h7oVvDAyM3RiT3DcpnFU/VrWpiYGBsRujtwVMol+eDOd3YWBg7MModA/GIXgytHERcDEwMJZjHMWj2k5IFtdrjl5Mt2FgYCzEqM5Z9UJktUk5T6oxMDDWY0zGLKoNyOcGzjAwMHZgFLLeVpEuP98L3BgYGBjVZSVPrt57QcXAwMAYDIrlJbNkXOw0TGNgYGzAqG7vko1dcmWe+t5WbsPAwHghozfiMN9Q5hvHHhsDA2MJxg95bYmHDJ+HkgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/11/solution_2019_2_11/" class="archive-article-date">
-  	<time datetime="2019-02-11T08:04:22.780Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-11</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/17/solution_p5305/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">题解 P5305 [GXOI/GZOI2019]旧词</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/11/solution_2019_2_11/">题解 模拟赛 2-11</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">比赛</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">最短路</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">线段树</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "Ju5O3gfp1VuOiq3H3n2mJRno-gzGzoHsz",
+            app_key: "mcneJFo3HplPlaaRpVKMXPTF",
+            placeholder: "Say something.",
+            avatar:"mm"
+        });
+    }
+</script>
+  </section>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/29/solution_2019_1_29/" class="archive-article-date">
-  	<time datetime="2019-01-29T05:39:04.071Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/29/solution_2019_1_29/">题解 模拟赛 Round 3 1-29</a>
-    </h1>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">比赛</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">树形DP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">贪心</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/28/solution_2019_1_28/" class="archive-article-date">
-  	<time datetime="2019-01-28T04:48:32.013Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/28/solution_2019_1_28/">题解 模拟赛 Round 2 1-28</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">比赛</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">二分答案</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/27/solution_2019_1_27/" class="archive-article-date">
-  	<time datetime="2019-01-27T04:52:51.522Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/27/solution_2019_1_27/">题解 模拟赛 Round 1 1-27</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">比赛</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">模拟</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">bitset</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">最短路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/27/solution_p2526/" class="archive-article-date">
-  	<time datetime="2019-01-27T03:22:35.596Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/27/solution_p2526/">题解 P2526 [SHOI2001]小狗散步</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">网络流</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/25/solution_uva1389/" class="archive-article-date">
-  	<time datetime="2019-01-25T13:10:01.030Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/25/solution_uva1389/">题解 UVA1389 Hard Life</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">分数规划</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">最大流</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/题解/">&laquo; Prev</a><a class="page-number" href="/tags/题解/">1</a><span class="page-number current">2</span><a class="page-number" href="/tags/题解/page/3/">3</a><a class="extend next" rel="next" href="/tags/题解/page/3/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -713,9 +360,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

@@ -215,6 +215,87 @@
 
 
   
+    <article id="post-solution_p5323" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/29/solution_p5323/">题解 P5323 [BJOI2019] 光线</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/29/solution_p5323/" class="archive-article-date">
+  	<time datetime="2019-04-29T11:51:23.102Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>递推。</p>
+<p>每片玻璃有反射和透过两种情况，每束光有从上方来和从下方来两种可能，看似情况非常多，但是我们可以分析一下，事实上最终一共只有两种情况：即光向上或向下，我们不妨令 $f[i]$ 表示第 $i$ 片玻璃向下的光，$g[i]$ 表示向上的光，那么可以得到两个显然的式子，即：</p>
+<script type="math/tex; mode=display">f[i]=f[i-1]\times a[i]+g[i+1]\times b[i]</script><script type="math/tex; mode=display">g[i]=f[i-1]\times b[n]+g[i+1]\times a[i]</script><p>显然这个东西是不能直接递推求的，因为求第 $i$ 项要第 $i-1$ 和第 $i+1$ 项，我们考虑换一种思路，令 $f[i]$ 表示光从第 $1$ 到第 $i$ 片玻璃的透光率，$g[i]$ 表示光从第 $i$ 到第 $1$ 片玻璃的反光率，枚举光的反射次数为 $j$，可以得到：</p>
+<script type="math/tex; mode=display">f[i]=f[i-1]\times a[i]\times \sum_{j=0}^{\infty}(g[i-1]\times b[i])^{j}</script><script type="math/tex; mode=display">g[i]=b[i]+g[i-1]\times a[i]^2\times \sum_{j=0}^{\infty}(g[i-1]\times b[i])^{j}</script><p>可以看出这是一个无限项的等比数列，而无限项等比数列 $a_n=a_{n-1}\times p$ 求和公式为（经百度）$\sum=\frac{a_{1}}{1-p}$，显然上面两个式子的公比 $p=g[i-1]\times b[i]$，所以我们可以得出：</p>
+<script type="math/tex; mode=display">f[i]=\frac{f[i-1]\times a[i]}{1-p}</script><script type="math/tex; mode=display">g[i]=b[i]+\frac{g[i-1]\times a[i]^{2}}{1-p}</script><p>直接递推求解即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 500005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> reg register</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> inl inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Mod=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">int</span> n,a[MAXN],b[MAXN],f[MAXN],g[MAXN];</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Add</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x+y&gt;Mod?x+y-Mod:x+y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Dec</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x-y&lt;<span class="number">0</span>?x-y+Mod:x-y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Mul</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x*y-x*y/Mod*Mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	reg <span class="keyword">int</span> res=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(;y;y&gt;&gt;=<span class="number">1</span>,x=Mul(x,x)) <span class="keyword">if</span>(y&amp;<span class="number">1</span>) res=Mul(res,x);</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	reg <span class="keyword">int</span> inv=Pow(<span class="number">100</span>,Mod<span class="number">-2</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld %lld"</span>,&amp;a[i],&amp;b[i]);</span><br><span class="line">		a[i]=Mul(inv,a[i]);</span><br><span class="line">		b[i]=Mul(inv,b[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	f[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		reg <span class="keyword">int</span> p=Pow(Dec(<span class="number">1</span>,Mul(g[i<span class="number">-1</span>],b[i])),Mod<span class="number">-2</span>);</span><br><span class="line">		f[i]=Mul(Mul(f[i<span class="number">-1</span>],a[i]),p);</span><br><span class="line">		g[i]=Add(b[i],Mul(Mul(Mul(g[i<span class="number">-1</span>],a[i]),a[i]),p));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,f[n]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">递推</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/29/solution_p5323/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
@@ -513,6 +594,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">线性基</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">递推</a>
               </li>
             
             <div class="clearfix"></div>
