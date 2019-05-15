@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
-  <title>Tag: 欧拉定理 | Venus&#39; Blog</title>
+  <title>题解 模拟赛 5-12 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Venus&#39; Blog">
-<meta property="og:url" content="http://VenusNero.github.io/tags/欧拉定理/index.html">
+  <meta name="description" content="菜的抠脚。">
+<meta name="keywords" content="题解,比赛,DP,暴力">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 模拟赛 5-12">
+<meta property="og:url" content="http://VenusNero.github.io/2019/05/15/solution_2019_5_12/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
+<meta property="og:description" content="菜的抠脚。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-15T14:21:32.093Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Venus&#39; Blog">
+<meta name="twitter:title" content="题解 模拟赛 5-12">
+<meta name="twitter:description" content="菜的抠脚。">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -146,72 +151,195 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-solution_2019_5_12" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/04/solution_cf906d_euler_theorem_note/" class="archive-article-date">
-  	<time datetime="2019-03-04T10:56:49.306Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/04/solution_cf906d_euler_theorem_note/">题解 CF906D Power Tower / 欧拉定理 &amp; 扩展欧拉定理学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      题解 模拟赛 5-12
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/05/15/solution_2019_5_12/" class="archive-article-date">
+  	<time datetime="2019-05-15T14:18:31.287Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>菜的抠脚。</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1365422876&auto=0&height=66"></iframe>
+
+<a id="more"></a>
+<h1 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h1><p>给定一棵树，改变最少的结点使其成为一棵二叉搜索树，求出点数。$n\leq 1e5$。</p>
+<p>我们知道，一棵严格二叉搜索树的中序遍历一定是一个严格上升序列，所以第一步肯定是求出中序遍历，然后有的同学就会想去求出它的 $\texttt{LIS}$，然后贪心做法减一减，但这样显然是不行的，因为不一定能做到严格上升，所以我们可以对求出的中序遍历中每个 $a_i$ 减去 $i$，再求 $\texttt{LIS}$，再减就没问题了。</p>
+<h1 id="T2"><a href="#T2" class="headerlink" title="T2"></a>T2</h1><p>定义区间 $[L,R]$ 为特殊的，当且仅当存在一个 $a_k (L\leq k\leq R)$，使得区间内的每个数都是 $a_k$ 的倍数，求出最长特殊区间的长度 $ans$ 及所有长度为 $ans$ 的特殊区间的 $L$。$n\leq 5e5$</p>
+<p>做法听说是 二分 + $\texttt{ST}$ 表，但是我们并不会这么高级的做法，考虑暴力做法，对每个点向左右进行扩展，找到边界，计算区间长度与 $ans$ 进行比较，记录答案即可。</p>
+<p>在数据随机的情况下复杂度可以到达优秀的 $\Theta(n\log n)$，轻松过掉（甚至暴力碾标算）。</p>
+<h1 id="T3"><a href="#T3" class="headerlink" title="T3"></a>T3</h1><p>给定排列 $\texttt{p}$，定义排列 $\texttt{q}$ 是优美的，当且仅当对一个排列 $\texttt{s}=\{1,2,…,n\}$ 进行 $n$ 次交换，每次交换 $s_{q_i}$ 和 $s_{q_i+1}$ 后能使得 $\texttt{s}=\texttt{p}$，求出优美的排列的个数。$n\leq 50$。</p>
+<p>考虑区间 $\texttt{DP}$，定义 $f[i][j]$ 为将区间 $[i,j]$ 变换为目标状态的方案数，我们可以发现一个限制，就是如果我们交换了 $k$ 和 $k+1$，那么前面那段就不可能交换到后面了，后面那段也不可能交换到前面，所以我们要令 $k$ 前面的全部 $\leq k$，后面的全部 $≥k$，记忆化搜索优化 $\texttt{DP}$ 即可，方程式为 $f[i][j]=f[i][j]+\texttt{Dfs}(i,k)<em> \texttt{Dfs}(k+1,j)</em> \texttt{C}(j-i-1,k-i)$。</p>
+<p>最终为 $\Theta(n^4)$ 的优秀复杂度。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">欧拉定理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">比赛</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">扩展欧拉定理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">暴力</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNElEQVR42u3aW67DIAxF0c5/0rkDiEL3sdMrYTZfVZUHiw/H2Hw+eFy38XTN0/X3u+7/r5//wpAhQ8a2jGs51i9YX3OB8fQcPjcZMmScwyABlJPiSSwXYj03GTJkyFhfs04cSWpYe68MGTJkkICLHg3CKEkuZciQISPdZPJ7a0nhz/fiMmTI2JDBq+7///sn/Q0ZMmRsxagFyk5xny9TMCsZMmSMZvAAlzY102Yn2Qx/eYsMGTJGM3jg4wfFOkGWH0T71OK3DBkytmXw2/ijScJXK/kFtUMZMmSMYKTF+n6rgCeCvC0qQ4aMqYx3j0ekIXj9f5CSypAh4wAGnyI/NkHSwU5RL151GTJkjGOQY2HpAbJOOe/L02TIkDGakR4CSwtwJICmJbY4EMuQIWNzRme66b21FiYq/8mQIWM0o9MAiItijS0rWiYZMmQMZfCckUyUF+D424upoQwZMsYxao3MfoOBB+7giyFDhoxxjPQ1abKYXsmXTIYMGWcyakH2reJamiA+lttkyJAxmpGmd7VDGHwTmzY1ZciQcQKDBMo0pHZCbZqwypAh4wRGbfOZHshYj7SqFu/FZciQsSHjCkcaHPmi1HajMmTIOIGRFsvSIn6n6FZLMWXIkDGVwYMs39ymLc804MZfDxkyZIxg1KbCC/q82dDai8uQIUNGmCbW8LUQL0OGDBn9VI+HYwJ43MTKkCFjNCNtBnSm3l8gGTJknMboFPT5Jpa3NvmSyZAh4wDGHxReslA01+PAAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/05/12/solution_p5331/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">题解 P5331 [SNOI2019]通信</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+  
+  
   
 
-    
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "Ju5O3gfp1VuOiq3H3n2mJRno-gzGzoHsz",
+            app_key: "mcneJFo3HplPlaaRpVKMXPTF",
+            placeholder: "Say something.",
+            avatar:"mm"
+        });
+    }
+</script>
+  </section>
+
+
+  
+
+  
+
+  
 
 
           </div>
@@ -247,9 +375,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
