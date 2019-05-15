@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://VenusNero.github.io/"/>
-  <updated>2019-05-15T14:21:32.093Z</updated>
+  <updated>2019-05-15T14:24:00.334Z</updated>
   <id>http://VenusNero.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://VenusNero.github.io/2019/05/15/solution_2019_5_12/"/>
     <id>http://VenusNero.github.io/2019/05/15/solution_2019_5_12/</id>
     <published>2019-05-15T14:18:31.287Z</published>
-    <updated>2019-05-15T14:21:32.093Z</updated>
+    <updated>2019-05-15T14:24:00.334Z</updated>
     
-    <content type="html"><![CDATA[<p>菜的抠脚。</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1365422876&auto=0&height=66"></iframe><a id="more"></a><h1 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h1><p>给定一棵树，改变最少的结点使其成为一棵二叉搜索树，求出点数。$n\leq 1e5$。</p><p>我们知道，一棵严格二叉搜索树的中序遍历一定是一个严格上升序列，所以第一步肯定是求出中序遍历，然后有的同学就会想去求出它的 $\texttt{LIS}$，然后贪心做法减一减，但这样显然是不行的，因为不一定能做到严格上升，所以我们可以对求出的中序遍历中每个 $a_i$ 减去 $i$，再求 $\texttt{LIS}$，再减就没问题了。</p><h1 id="T2"><a href="#T2" class="headerlink" title="T2"></a>T2</h1><p>定义区间 $[L,R]$ 为特殊的，当且仅当存在一个 $a_k (L\leq k\leq R)$，使得区间内的每个数都是 $a_k$ 的倍数，求出最长特殊区间的长度 $ans$ 及所有长度为 $ans$ 的特殊区间的 $L$。$n\leq 5e5$</p><p>做法听说是 二分 + $\texttt{ST}$ 表，但是我们并不会这么高级的做法，考虑暴力做法，对每个点向左右进行扩展，找到边界，计算区间长度与 $ans$ 进行比较，记录答案即可。</p><p>在数据随机的情况下复杂度可以到达优秀的 $\Theta(n\log n)$，轻松过掉（甚至暴力碾标算）。</p><h1 id="T3"><a href="#T3" class="headerlink" title="T3"></a>T3</h1><p>给定排列 $\texttt{p}$，定义排列 $\texttt{q}$ 是优美的，当且仅当对一个排列 $\texttt{s}=\{1,2,…,n\}$ 进行 $n$ 次交换，每次交换 $s_{q_i}$ 和 $s_{q_i+1}$ 后能使得 $\texttt{s}=\texttt{p}$，求出优美的排列的个数。$n\leq 50$。</p><p>考虑区间 $\texttt{DP}$，定义 $f[i][j]$ 为将区间 $[i,j]$ 变换为目标状态的方案数，我们可以发现一个限制，就是如果我们交换了 $k$ 和 $k+1$，那么前面那段就不可能交换到后面了，后面那段也不可能交换到前面，所以我们要令 $k$ 前面的全部 $\leq k$，后面的全部 $≥k$，记忆化搜索优化 $\texttt{DP}$ 即可，方程式为 $f[i][j]=f[i][j]+\texttt{Dfs}(i,k)<em> \texttt{Dfs}(k+1,j)</em> \texttt{C}(j-i-1,k-i)$。</p><p>最终为 $\Theta(n^4)$ 的优秀复杂度。</p>]]></content>
+    <content type="html"><![CDATA[<p>菜的抠脚。</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1365422876&auto=0&height=66"></iframe><a id="more"></a><h1 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h1><p>给定一棵树，改变最少的结点使其成为一棵二叉搜索树，求出点数。$n\leq 1e5$。</p><p>我们知道，一棵严格二叉搜索树的中序遍历一定是一个严格上升序列，所以第一步肯定是求出中序遍历，然后有的同学就会想去求出它的 $\texttt{LIS}$，然后贪心做法减一减，但这样显然是不行的，因为不一定能做到严格上升，所以我们可以对求出的中序遍历中每个 $a_i$ 减去 $i$，再求 $\texttt{LIS}$，再减就没问题了。</p><h1 id="T2"><a href="#T2" class="headerlink" title="T2"></a>T2</h1><p>定义区间 $[L,R]$ 为特殊的，当且仅当存在一个 $a_k (L\leq k\leq R)$，使得区间内的每个数都是 $a_k$ 的倍数，求出最长特殊区间的长度 $ans$ 及所有长度为 $ans$ 的特殊区间的 $L$。$n\leq 5e5$</p><p>做法听说是 二分 + $\texttt{ST}$ 表，但是我们并不会这么高级的做法，考虑暴力做法，对每个点向左右进行扩展，找到边界，计算区间长度与 $ans$ 进行比较，记录答案即可。</p><p>在数据随机的情况下复杂度可以到达优秀的 $\Theta(n\log n)$，轻松过掉（甚至暴力碾标算）。</p><h1 id="T3"><a href="#T3" class="headerlink" title="T3"></a>T3</h1><p>给定排列 $\texttt{p}$，定义排列 $\texttt{q}$ 是优美的，当且仅当对一个排列 $\texttt{s}=\{1,2,…,n\}$ 进行 $n$ 次交换，每次交换 $s_{q_i}$ 和 $s_{q_i+1}$ 后能使得 $\texttt{s}=\texttt{p}$，求出优美的排列的个数。$n\leq 50$。</p><p>考虑区间 $\texttt{DP}$，定义 $f[i][j]$ 为将区间 $[i,j]$ 变换为目标状态的方案数，我们可以发现一个限制，就是如果我们交换了 $k$ 和 $k+1$，那么前面那段就不可能交换到后面了，后面那段也不可能交换到前面，所以我们要令 $k$ 前面的全部 $\leq k$，后面的全部 $≥k$，记忆化搜索优化 $\texttt{DP}$ 即可，方程式为 $f[i][j]=f[i][j]+\texttt{Dfs}(i,k) \times \texttt{Dfs}(k+1,j) \times \texttt{C}(j-i-1,k-i)$。</p><p>最终为 $\Theta(n^4)$ 的优秀复杂度。</p>]]></content>
     
     <summary type="html">
     
