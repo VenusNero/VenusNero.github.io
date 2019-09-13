@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
-  <title>Archives: 2019 | Venus&#39; Blog</title>
+  <title>题解 P3215 [HNOI2011]括号修复 /  [JSOI2011]括号序列 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Venus&#39; Blog">
-<meta property="og:url" content="http://VenusNero.github.io/archives/2019/index.html">
+  <meta name="description" content="ODT。给定一个括号序列，有若干个操作，分别为区间赋值、区间翻转、区间取反（左右括号反转），区间求修改多少位变成合法的括号序列。">
+<meta name="keywords" content="珂朵莉树,题解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 P3215 [HNOI2011]括号修复 &#x2F;  [JSOI2011]括号序列">
+<meta property="og:url" content="http://VenusNero.github.io/2019/09/13/solution_p3215/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
+<meta property="og:description" content="ODT。给定一个括号序列，有若干个操作，分别为区间赋值、区间翻转、区间取反（左右括号反转），区间求修改多少位变成合法的括号序列。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-13T01:56:00.340Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Venus&#39; Blog">
+<meta name="twitter:title" content="题解 P3215 [HNOI2011]括号修复 &#x2F;  [JSOI2011]括号序列">
+<meta name="twitter:description" content="ODT。给定一个括号序列，有若干个操作，分别为区间赋值、区间翻转、区间取反（左右括号反转），区间求修改多少位变成合法的括号序列。">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -146,36 +151,45 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-solution_p3215" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/13/solution_p3215/" class="archive-article-date">
-  	<time datetime="2019-09-13T01:56:00.103Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-13</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/13/solution_p3215/">题解 P3215 [HNOI2011]括号修复 /  [JSOI2011]括号序列</a>
+    <h1 class="article-title" itemprop="name">
+      题解 P3215 [HNOI2011]括号修复 /  [JSOI2011]括号序列
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/09/13/solution_p3215/" class="archive-article-date">
+  	<time datetime="2019-09-13T01:56:00.103Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ODT。<br>给定一个括号序列，有若干个操作，分别为区间赋值、区间翻转、区间取反（左右括号反转），区间求修改多少位变成合法的括号序列。</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=1389654852&auto=0&height=66"></iframe>
+
+<a id="more"></a>
+<p>%%% zqh 大仙，本来都想硬艹 fhq 了，后来才发现居然可以用 ODT，而且贼好写……<br>逐个操作分析一下</p>
+<ul>
+<li><code>Replace</code> 就是一个简单的推平，直接推就好了。</li>
+<li><code>Swap</code> 比较烦，我是把那一段的迭代器里的元素存到一个数组里，然后修改完再插入回去，修改的方式比较暴力，就是用一个 $\text{pos}$ 记录一下当前的结尾位置，然后从前往后扫数组，当前这个元素的 $r$ 就是 $\text{pos}$，$l$ 就是 $\text{pos}-(r-l+1)+1$，然后把 $\text{pos}$ 修改为 $l-1$，这样挨个做过去就可以了。</li>
+<li><code>Invert</code> 可以大力 <code>Split</code> 一下，然后直接挨个取反就可以了。</li>
+<li><code>Query</code> 操作比较烦，我们可以将 <code>(</code> 视作 <code>1</code>，<code>)</code> 视作 <code>-1</code>，求一手前缀和，如果 $\text{sum}$ 小于 $0$，说明前面 <code>)</code> 多，需要修改 $\lceil\frac{\text{sum}}{2}\rceil$ 个元素，直接加到答案里，然后修改一下 $\text{sum}$，改成 $\text{sum}-\lfloor\frac{\text{sum}}{2}\rfloor$，继续往后做。整个做完之后如果 $\text{sum}\not=0$ 再把 $\lfloor \frac{|\text{sum}|}{2}\rfloor$ 记录到答案里即可。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 100005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> reg register</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> inl inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> iter set<span class="meta-string">&lt;Node&gt;::iterator </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> l,r;</span><br><span class="line">	<span class="keyword">mutable</span> <span class="keyword">int</span> val;<span class="comment">// 1 ( , -1 )</span></span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> Node &amp;x) <span class="keyword">const</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> l&lt;x.l;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;a[MAXN],t[MAXN];</span><br><span class="line"><span class="keyword">int</span> n,Q;</span><br><span class="line"><span class="keyword">char</span> ch[MAXN];</span><br><span class="line"><span class="built_in">set</span>&lt;Node&gt; s;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">T</span><span class="params">(reg <span class="keyword">char</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x==<span class="string">'('</span>?<span class="number">1</span>:<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl iter <span class="title">Split</span><span class="params">(reg <span class="keyword">int</span> pos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	reg iter it=s.lower_bound((Node)&#123;pos,pos,<span class="number">-1</span>&#125;);</span><br><span class="line">	<span class="keyword">if</span>(it!=s.end() &amp;&amp; it-&gt;l==pos) <span class="keyword">return</span> it;</span><br><span class="line">	it--;</span><br><span class="line">	reg Node x=*it;</span><br><span class="line">	s.erase(it);</span><br><span class="line">	s.insert((Node)&#123;x.l,pos<span class="number">-1</span>,x.val&#125;);</span><br><span class="line">	<span class="keyword">return</span> s.insert((Node)&#123;pos,x.r,x.val&#125;).first;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">void</span> <span class="title">Assign</span><span class="params">(reg <span class="keyword">int</span> l,reg <span class="keyword">int</span> r,reg <span class="keyword">int</span> val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	reg iter R=Split(r+<span class="number">1</span>),L=Split(l);</span><br><span class="line">	s.erase(L,R);</span><br><span class="line">	s.insert((Node)&#123;l,r,val&#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">void</span> <span class="title">Reverse</span><span class="params">(reg <span class="keyword">int</span> l,reg <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	reg <span class="keyword">int</span> tot=<span class="number">0</span>;</span><br><span class="line">	reg iter R=Split(r+<span class="number">1</span>),L=Split(l);</span><br><span class="line">	<span class="keyword">for</span>(reg iter it=L;it!=R;it++) a[++tot]=(*it);</span><br><span class="line">	s.erase(L,R);</span><br><span class="line">	reg <span class="keyword">int</span> pos=a[tot].r;</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		t[i].val=a[i].val;</span><br><span class="line">		t[i].r=pos;</span><br><span class="line">		t[i].l=pos-(a[i].r-a[i].l+<span class="number">1</span>)+<span class="number">1</span>;</span><br><span class="line">		pos-=(a[i].r-a[i].l+<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++) s.insert(t[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">void</span> <span class="title">Modify</span><span class="params">(reg <span class="keyword">int</span> l,reg <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	reg iter R=Split(r+<span class="number">1</span>),L=Split(l);</span><br><span class="line">	<span class="keyword">for</span>(reg iter it=L;it!=R;it++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(it-&gt;val==<span class="number">-1</span>) it-&gt;val=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(it-&gt;val==<span class="number">1</span>) it-&gt;val=<span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Query</span><span class="params">(reg <span class="keyword">int</span> l,reg <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	reg <span class="keyword">int</span> sum=<span class="number">0</span>,res=<span class="number">0</span>;</span><br><span class="line">	reg iter R=Split(r+<span class="number">1</span>),L=Split(l);</span><br><span class="line">	<span class="keyword">for</span>(reg iter it=L;it!=R;it++)</span><br><span class="line">	&#123;</span><br><span class="line">		sum+=(it-&gt;r-it-&gt;l+<span class="number">1</span>)*it-&gt;val;</span><br><span class="line">		<span class="keyword">if</span>(sum&lt;<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			res+=-sum/<span class="number">2</span>;</span><br><span class="line">			<span class="keyword">if</span>((-sum)&amp;<span class="number">1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				sum=<span class="number">1</span>;</span><br><span class="line">				res++;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> sum=<span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	res+=<span class="built_in">abs</span>(sum)/<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">void</span> <span class="title">Out</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"   start : "</span>);</span><br><span class="line">	reg iter R=Split(n+<span class="number">1</span>),L=Split(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(reg iter it=L;it!=R;it++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(reg <span class="keyword">int</span> i=it-&gt;l;i&lt;=it-&gt;r;i++) <span class="built_in">printf</span>(<span class="string">"%c"</span>,it-&gt;val==<span class="number">1</span>?<span class="string">'('</span>:<span class="string">')'</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"end."</span>);</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;n,&amp;Q);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>,ch+<span class="number">1</span>);</span><br><span class="line">	reg <span class="keyword">int</span> pos=<span class="number">1</span>;</span><br><span class="line">	reg <span class="keyword">char</span> now=ch[<span class="number">1</span>];</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(ch[i]!=now)</span><br><span class="line">		&#123;</span><br><span class="line">			s.insert((Node)&#123;pos,i<span class="number">-1</span>,T(now)&#125;);</span><br><span class="line">			now=ch[i];</span><br><span class="line">			pos=i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	s.insert((Node)&#123;pos,n,T(now)&#125;);</span><br><span class="line">	<span class="keyword">while</span>(Q--)</span><br><span class="line">	&#123;</span><br><span class="line">		reg <span class="built_in">string</span> opt;</span><br><span class="line">		reg <span class="keyword">int</span> x,y;</span><br><span class="line">		reg <span class="keyword">char</span> z;</span><br><span class="line">		<span class="built_in">cin</span>&gt;&gt;opt;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;x,&amp;y);</span><br><span class="line">		<span class="keyword">if</span>(opt==<span class="string">"Replace"</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">cin</span>&gt;&gt;z;</span><br><span class="line">			Assign(x,y,T(z));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(opt==<span class="string">"Swap"</span>) Reverse(x,y);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(opt==<span class="string">"Invert"</span>) Modify(x,y);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(opt==<span class="string">"Query"</span>) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Query(x,y));</span><br><span class="line"><span class="comment">//		if(opt!="Query") Out();</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,409 +205,131 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLElEQVR42u3aUW6DQAxF0ex/03QBFdP7bFIJ+/IVEVLmUMl4bH8++Lh+HXffns+kv3r4kCFDxmsZ1/Eg15x/df4Ld1fytcmQIWMP4y6CncMlOYMWgcP07XkZMmTIwEkeSfUIRoYMGTL6Abe2LJ4IypAhQ0ZtE3teSrrFTUP2Y3txGTJkvJDBq+7///kr/Q0ZMmS8itEPlGnCx9PQYFUyZMgYzeABrjNmQVqYZFP9x3pkyJAxlFEbkugX4HihDYV7GTJkrGE8G155wlcr+d0GXBkyZIxjpE1E/vn8IHgiyAfIZMiQMZXBB7x4IYwnoISHVihDhoyVjP4NyJXkbRBMi8iQIWM0g1z61GBEmkSixFGGDBmjGf2ErxNAeRkuKLfJkCFjHKPTGEhDbfp0g7vLkCFjAaM27vBUia2z6ZUhQ8YeBk/yasG3mLF2UkMZMmQMYpwXlKZrneJ+MdSS5ypDhoyXM9JmAAF3Cna10C9DhozZDDJg0S+xpYkgX48MGTJ2Mkgi2Cn0p2kov6MMGTI2MEiQRYGv8Tg6xTgZMmRsZpBUL21P8o1u8IBkyJAxlHGFBy/D8cXx5ij6P8iQIWMcIy2W8UYCCcG1jTF/JciQIWMSIw2yaYPzGwE3fnvIkCFjBIPves/Xp8W7Ght1YmXIkLGe0UkWeQuTp54yZMiQkY5NdOa1ai1PGTJkbGDwsS2e0qUlft40lSFDxjZGbcSBBMdaSa4zcCZDhoxxjB9K/jf1ATgrWQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/26/solution_p2183/" class="archive-article-date">
-  	<time datetime="2019-08-26T13:35:07.617Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/26/solution_p2183/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">题解 P2183 [国家集训队]礼物</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/26/solution_p2183/">题解 P2183 [国家集训队]礼物</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">组合数学</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">扩展卢卡斯</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "Ju5O3gfp1VuOiq3H3n2mJRno-gzGzoHsz",
+            app_key: "mcneJFo3HplPlaaRpVKMXPTF",
+            placeholder: "Say something.",
+            avatar:"mm"
+        });
+    }
+</script>
+  </section>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/12/solution_cfr564div2/" class="archive-article-date">
-  	<time datetime="2019-06-12T13:38:28.708Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/12/solution_cfr564div2/">题解 CF Round 564 Div.2</a>
-    </h1>
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">比赛</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">CodeForces</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/21/solution_p4883/" class="archive-article-date">
-  	<time datetime="2019-05-21T14:01:59.379Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/21/solution_p4883/">题解 P4883 mzf的考验</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">FHQTreap</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/15/solution_2019_5_12/" class="archive-article-date">
-  	<time datetime="2019-05-15T14:18:31.287Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/15/solution_2019_5_12/">题解 模拟赛 5-12</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">比赛</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">暴力</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/12/solution_p5331/" class="archive-article-date">
-  	<time datetime="2019-05-12T14:27:09.358Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/12/solution_p5331/">题解 P5331 [SNOI2019]通信</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">费用流</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">分治</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/29/solution_p5323/" class="archive-article-date">
-  	<time datetime="2019-04-29T11:51:23.102Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/29/solution_p5323/">题解 P5323 [BJOI2019] 光线</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">递推</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/17/solution_p5305/" class="archive-article-date">
-  	<time datetime="2019-04-17T13:49:00.120Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/17/solution_p5305/">题解 P5305 [GXOI/GZOI2019]旧词</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">树链剖分</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/17/solution_p5304/" class="archive-article-date">
-  	<time datetime="2019-04-17T13:28:23.297Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/17/solution_p5304/">题解 P5304 [GXOI/GZOI2019]旅行者</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">最短路</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/16/about_me/" class="archive-article-date">
-  	<time datetime="2019-04-16T11:30:03.081Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/16/about_me/">About Me</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="page-number" href="/archives/2019/page/3/">3</a><a class="page-number" href="/archives/2019/page/4/">4</a><a class="extend next" rel="next" href="/archives/2019/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -630,8 +366,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
