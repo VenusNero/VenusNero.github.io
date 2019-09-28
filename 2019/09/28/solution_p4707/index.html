@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://VenusNero.github.io">
-  <title>Tag: 组合数学 | Venus&#39; Blog</title>
+  <title>题解 P4707 重返现世 | Venus&#39; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Venus&#39; Blog">
-<meta property="og:url" content="http://VenusNero.github.io/tags/组合数学/index.html">
+  <meta name="description" content="有 $n$ 种材料，第 $i$ 种材料的出现概率为 $\frac{p_i}{m}$，求出出现任意 $k$ 种材料的期望时间对 $998244353$ 的结果。">
+<meta name="keywords" content="题解,dp,min-max 容斥">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 P4707 重返现世">
+<meta property="og:url" content="http://VenusNero.github.io/2019/09/28/solution_p4707/index.html">
 <meta property="og:site_name" content="Venus&#39; Blog">
+<meta property="og:description" content="有 $n$ 种材料，第 $i$ 种材料的出现概率为 $\frac{p_i}{m}$，求出出现任意 $k$ 种材料的期望时间对 $998244353$ 的结果。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-28T14:26:58.455Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Venus&#39; Blog">
+<meta name="twitter:title" content="题解 P4707 重返现世">
+<meta name="twitter:description" content="有 $n$ 种材料，第 $i$ 种材料的出现概率为 $\frac{p_i}{m}$，求出出现任意 $k$ 种材料的期望时间对 $998244353$ 的结果。">
   
     <link rel="alternative" href="/atom.xml" title="Venus&#39; Blog" type="application/atom+xml">
   
@@ -146,72 +151,194 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-solution_p4707" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/26/solution_p2183/" class="archive-article-date">
-  	<time datetime="2019-08-26T13:35:07.617Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/26/solution_p2183/">题解 P2183 [国家集训队]礼物</a>
+    <h1 class="article-title" itemprop="name">
+      题解 P4707 重返现世
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/09/28/solution_p4707/" class="archive-article-date">
+  	<time datetime="2019-09-28T14:26:58.267Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有 $n$ 种材料，第 $i$ 种材料的出现概率为 $\frac{p_i}{m}$，求出出现任意 $k$ 种材料的期望时间对 $998244353$ 的结果。</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=534065323&auto=0&height=66"></iframe>
+
+<a id="more"></a>
+<p>扩展 $\textbf{min-max}$ 容斥。<br>第一次做这种毒瘤题呢……对着题解啃了好几天……<br>本篇题解纯属口胡……<br>首先，我们需要掏出一个叫做 $\textbf{min-max}$ 容斥 的式子：</p>
+<script type="math/tex; mode=display">\max(S)=\sum_{\varnothing \neq T\subseteq S}(-1)^{|T|
+-1}\min(T)</script><p>因为太玄学了，咱也证明不来，只能背下来了……<br>然后这个式子是求最大值的，我们可以把它扩展一下，让它变成求第 $k$ 大值，如下：</p>
+<script type="math/tex; mode=display">\max_k(S)=\sum_{\varnothing \neq T\subseteq S}(-1)^{|T|-k}\binom{|T|-1}{k-1}\min(T)</script><p>然后很玄学地，它可以扩展到期望，如下：</p>
+<script type="math/tex; mode=display">\ E(\max_k(S))=\sum_{\varnothing \neq T\subseteq S}(-1)^{|T|-k}\binom{|T|-1}{k-1}E(\min(T))</script><p>其中 $S$ 代表的是 $S$ 包含的材料的期望出现时间的集合，我们令 $k=n-k+1$，所以我们要求的就是上式。那么要怎么求呢？首先得到集合 $S$ 中物品的概率为：</p>
+<script type="math/tex; mode=display">\sum_{i\in S}p_i</script><p>那么期望时间就是：</p>
+<script type="math/tex; mode=display">\frac{1}{\sum_{i\in S}p_i}</script><p>根据这个，我们可以设计 $\textbf{dp}$ 来求解。我们考虑令 $f_{i,j,k}$ 表示当前为第 $i$ 个位置，前面选的物品的出现概率和为 $j$ 的 $\sum_{T\subseteq S}\binom{|T|-1}{k-1}(-1)^{|T|-k}$ 的大小，考虑它怎么从 $f_{i-1,j,k}$ 转移过来，显然，如果没有 $i$ 这个材料，直接跳过，即 $f_{i,j,k}=f_{i-1,j,k}$，我们主要考虑如果有 $i$ 这个材料怎么转移，如下：</p>
+<script type="math/tex; mode=display">f_{i,j,k}=\sum_{T\subseteq S}\binom{|T|-1}{k-1}(-1)^{|T|-k}=\sum_{T\subseteq S}\binom{|T|}{k-1}(-1)^{|T|-k+1}</script><p>这一步的意思是不考虑 $i$ 这个材料，即去掉 $p_i$ 的概率，转而考虑前 $i-1$ 个材料。可以注意这一步可以通过组合数的递推重新化成 $|T|-1$：</p>
+<script type="math/tex; mode=display">=\sum_{T\subseteq S}(\binom{|T|-1}{k-1}+\binom{|T|-1}{k-2})(-1)^{|T|-k+1}</script><p>把它拆开来：</p>
+<script type="math/tex; mode=display">=\sum_{T\subseteq S}\binom{|T|-1}{(k-1)-1}(-1)^{|T|-(k-1)}-\sum_{T\subseteq S}\binom{|T|-1}{k-1}(-1)^{|T|-k}</script><p>注意到前面的 $(k-1)$ 是一个整体，所以我们可以得到转移方程：</p>
+<script type="math/tex; mode=display">f_{i,j,k}=f_{i-1,j,k}+f_{i-1,j-p_i,k-1}-f_{i-1,j-p_i,k}</script><p>初始值为 $f_{i,0,0}=1$，由于空间复杂度高达 $\text{O}(nmk)$，我们可以滚掉第一维，这样空间复杂度就是 $\text{O}(mk)$，可以通过此题。<br>（其实转移真的很像背包）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 1005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXM 10005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXK 15</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> reg register</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> inl inline</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> Mod=<span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">int</span> n,K,m,p[MAXN],f[<span class="number">2</span>][MAXM][MAXK],inv[MAXM],cnt,ans;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Add</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x+y&gt;=Mod?x+y-Mod:x+y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Del</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x-y&lt;<span class="number">0</span>?x-y+Mod:x-y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">inl <span class="keyword">int</span> <span class="title">Mul</span><span class="params">(reg <span class="keyword">int</span> x,reg <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1l</span>l*x*y<span class="number">-1l</span>l*x*y/Mod*Mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>,&amp;n,&amp;K,&amp;m);</span><br><span class="line">	K=n-K+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;p[i]);</span><br><span class="line">	inv[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=m;i++) inv[i]=Mul(inv[Mod%i],Mod-Mod/i);</span><br><span class="line">	f[cnt][<span class="number">0</span>][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cnt^=<span class="number">1</span>;</span><br><span class="line">		<span class="built_in">memset</span>(f[cnt],<span class="number">0</span>,<span class="keyword">sizeof</span>(f[cnt]));</span><br><span class="line">		f[cnt][<span class="number">0</span>][<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(reg <span class="keyword">int</span> j=<span class="number">1</span>;j&lt;p[i];j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span>(reg <span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=K;k++) f[cnt][j][k]=f[cnt^<span class="number">1</span>][j][k];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(reg <span class="keyword">int</span> j=p[i];j&lt;=m;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span>(reg <span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=K;k++) f[cnt][j][k]=Add(f[cnt^<span class="number">1</span>][j][k],Del(f[cnt^<span class="number">1</span>][j-p[i]][k<span class="number">-1</span>],f[cnt^<span class="number">1</span>][j-p[i]][k]));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(reg <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++) ans=Add(ans,Mul(f[cnt][i][K],Mul(inv[i],m)));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数论</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">题解</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">组合数学</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">dp</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">扩展卢卡斯</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">min-max 容斥</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACK0lEQVR42u3aMXLDMAwEwPz/006TIo2ZO1DOjKhV5bElkcsCBgl8fcXX69eV/Prum/apiy8MDIzbMl7Laz1A8tTsznxuGBgYz2G8i2Dre9bvKSYRh+m332NgYGDEr27D9Gz5MDAwMK4KuOtAvE4EMTAwMGab2Dy87iSFH9+LY2Bg3JCRn7r//+eP1DcwMDBuxXiV1w5vPblZ4P55CgMD42hGu0HdaZiYLU0xHwwMjEMZsyaJZLCdILseN0oNMTAwDmLkR2lteM0TvtmRX/S/gYGBcQQjKS62wXcdKJNv8rIoBgbGcxj5q9syZ57kzYI+BgbGMxn5MVmezM2WqTikw8DAeCQjH2bWtJFMrjiww8DAOJrRNjrMhmk3xsMGDgwMjEMZeUqX8/I6YzJitBnGwMB4AGNWBtgpD8xayoq1wcDAOIiRb1Pz4Js8G2Wso/sxMDDOY7TJ36ypYmdLHIVaDAyMBzDaqcxKj7PENGoUw8DAOJrRpnrt53ZRthYUAwPjAYz9gfPDuzbgRkuGgYHxMEYefNtjsrYtYx1RMTAwMNqXttvaWdPGMOBiYGDclvEqr6sO2pIwmieLGBgYZzP2+6x2QnASyoc9IxgYGMcx2pJAXj1sU7084Nb/HhgYGEcwil1veVg2O7CrQz8GBgZGPMW88aJtC/uDioGBgbEx9bbwOSupYmBgPIHRtla0LRT7bRmXHbdhYGDckDFrcbg2TOdFiK1CJgYGxv0Y3/+bN/UJ2+n8AAAAAElFTkSuQmCC" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/09/13/solution_p3215/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">题解 P3215 [HNOI2011]括号修复 /  [JSOI2011]括号序列</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+  
+  
   
 
-    
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '.comment',
+            notify: notify,
+            verify: verify,
+            app_id: "Ju5O3gfp1VuOiq3H3n2mJRno-gzGzoHsz",
+            app_key: "mcneJFo3HplPlaaRpVKMXPTF",
+            placeholder: "Say something.",
+            avatar:"mm"
+        });
+    }
+</script>
+  </section>
+
+
+  
+
+  
+
+  
 
 
           </div>
@@ -247,9 +374,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
